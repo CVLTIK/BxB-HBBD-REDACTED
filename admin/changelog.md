@@ -9,10 +9,13 @@ All notable changes to this project will be documented in this file.
 * Compatibility with WordPress [tested version]
 * Changelog
 * README
+* Initial plugin script
 
 ### Changed
 
-cahkgelog .txt to .md
+changelog .txt to .md
+
+README order and Icons
 
 ### Fixed
 
@@ -22,5 +25,4 @@ cahkgelog .txt to .md
 
 * Kinsta SSH Terminal Added
 * Initial Git Integration
-
 * Core functionality VS Code setup with [Gitlens](https://www.gitkraken.com/gitlens)
