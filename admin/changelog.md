@@ -23,7 +23,11 @@ changelog .txt to .md
 
 README order and icons and linking
 
+Plugin Name
+
 ### Fixed
+
+Rebased file structure so the plugin will show up and can be activated from the plugin dashboard.
 
 ## [1.0.0] - 2025-03-31
 

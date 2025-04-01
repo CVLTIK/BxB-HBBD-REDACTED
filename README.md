@@ -1,4 +1,4 @@
-# BxB Dashboard Plugin
+# BxB Layout Dashboard Plugin
 
 **A WordPress dashboard plugin for streamlined site setup and theme management.**
 
@@ -19,10 +19,10 @@
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/CVLTIK/BxB-ldash-REDACTED.git
+   git clone https://github.com/CVLTIK/BxB-Layout-Dashboard.git
    ```
 2. Upload the extracted folder to `/wp-content/plugins/`.
-3. Navigate to **Plugins > Installed Plugins** and activate it.-
+3. Navigate to **Plugins > Installed Plugins** and activate it.
 
 <a id="access"></a>
 
