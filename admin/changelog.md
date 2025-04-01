@@ -9,13 +9,19 @@ All notable changes to this project will be documented in this file.
 * Compatibility with WordPress [tested version]
 * Changelog
 * README
-* Initial plugin script
+* Initial Plugin Script
+* WP Activation Hook
+* Admin Hook
+* Script and Style Queuing
+* ACF (hopefully) Integration
+* Setting Saving
+* Uninstall Cleanup
 
 ### Changed
 
 changelog .txt to .md
 
-README order and Icons
+README order and icons and linking
 
 ### Fixed
 

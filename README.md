@@ -1,4 +1,4 @@
-# BxB HBBD
+# BxB Dashboard Plugin
 
 **A WordPress dashboard plugin for streamlined site setup and theme management.**
 
@@ -19,11 +19,10 @@
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/CVLTIK/BxB-HBBD-REDACTED.git
+   git clone https://github.com/CVLTIK/BxB-ldash-REDACTED.git
    ```
 2. Upload the extracted folder to `/wp-content/plugins/`.
 3. Navigate to **Plugins > Installed Plugins** and activate it.-
-
 
 <a id="access"></a>
 
@@ -79,9 +78,8 @@ See [CHANGELOG.md]() for a history of updates.
 
 ## Reporting Issues
 
-If you find a bug or have a feature request, please open an issue on [GitHub](https://github.com/CVLTIK/BxB-HBBD-REDACTED/issues).
+If you find a bug or have a feature request, please open an issue on [GitHub](https://github.com/CVLTIK/BxB-ldash-REDACTED/issues).
 
 ## License
 
 This plugin is licensed under the **MPL-2.0**.
-
