@@ -12,6 +12,7 @@ function bxb_dashboard_add_admin_menu() {
     add_menu_page(
         'BxB Dasboard Settings',
         'BxB Dashboard',
+        'Settings',
         'manage_options',
         'bxb-dashboard',
         'bxb_dashboard_settings_page',
