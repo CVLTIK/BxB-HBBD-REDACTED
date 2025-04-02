@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
  */
 function bxb_dashboard_add_admin_menu() {
     add_menu_page(
-        'BxB Dasboard Settings',
+        'BxB Dashboard Settings',
         'BxB Dashboard',
         'manage_options',
         'bxb-dashboard',
