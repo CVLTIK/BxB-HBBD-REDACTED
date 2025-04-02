@@ -14,16 +14,16 @@ function bxb_dashboard_add_admin_menu() {
         'BxB Dashboard',
         'manage_options',
         'bxb-dashboard',
-        'bxb_dashboard_settings_page',
+        'bxb_dashboard',
         'dashicons-table-col-after',
         25
     );
 
     // Add README Page
     add_submenu_page(
-        'bxb-dashboard', // ✅ This now correctly matches the parent menu
-        'BxB HBBD README',
-        '📖 README',
+        'bxb-dashboard',
+        'README',
+        'README',
         'manage_options',
         'bxb-dashboard-readme',
         'bxb_readme_page'
@@ -35,7 +35,7 @@ add_action('admin_menu', 'bxb_dashboard_add_admin_menu');
 /**
  * Display settings page.
  */
-function bxb_dashboard_settings_page() {
+function bxb_dashboard() {
     ?>
     <div class="wrap">
         <h1>BxB Settings</h1>
