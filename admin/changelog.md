@@ -1,4 +1,4 @@
-# Changelog - **[BxB-HBBD-REDACTED](https://github.com/CVLTIK/BxB-HBBD-REDACTED)**
+# Changelog - **[BxB Layout Dashboard](https://github.com/CVLTIK/BxB-Layout-Dashboard)**
 
 All notable changes to this project will be documented in this file.
 
@@ -19,15 +19,14 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-changelog .txt to .md
-
-README order and icons and linking
-
-Plugin Name
+* changelog .txt to .md
+* README order and icons and linking
+* Plugin Name
 
 ### Fixed
 
-Rebased file structure so the plugin will show up and can be activated from the plugin dashboard.
+* Rebased file structure so the plugin will show up and can be activated from the plugin dashboard.
+* Broken README
 
 ## [1.0.0] - 2025-03-31
 
