@@ -18,6 +18,18 @@ function bxb_dashboard_add_admin_menu() {
         'dashicons-table-col-after',
         25
     );
+
+    // Add README Page
+    add_submenu_page(
+        'bxb-hbbd',
+        'BxB HBBD README',
+        '📖 README',
+        'manage_options',
+        'bxb-hbbd-readme',
+        'bxb_hbbd_readme_page'
+    );
+
+
 }
 add_action('admin_menu', 'bxb_dashboard_add_admin_menu');
 
@@ -38,4 +50,22 @@ function bxb_dashboard_settings_page() {
         </form>
     </div>
     <?php
+}
+
+/**
+ * Display the README page.
+ */
+function bxb_hbbd_readme_page() {
+    $readme_path = BXB_dashboard_DIR . 'README.md';
+
+    echo '<div class="wrap"><h1>📖 BxB HBBD README</h1>';
+    
+    if (file_exists($readme_path)) {
+        $readme_content = file_get_contents($readme_path);
+        echo '<pre style="background:#fff; padding:10px; border:1px solid #ccc; white-space: pre-wrap;">' . esc_html($readme_content) . '</pre>';
+    } else {
+        echo '<p style="color:red;">README.md not found.</p>';
+    }
+
+    echo '</div>';
 }
