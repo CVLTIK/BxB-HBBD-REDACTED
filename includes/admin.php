@@ -21,12 +21,12 @@ function bxb_dashboard_add_admin_menu() {
 
     // Add README Page
     add_submenu_page(
-        'bxb-hbbd',
+        'BxB Dasboard Settings',
         'BxB HBBD README',
         '📖 README',
         'manage_options',
-        'bxb-hbbd-readme',
-        'bxb_hbbd_readme_page'
+        'bxb-dashboard-readme',
+        'bxb_readme_page'
     );
 
 
@@ -51,13 +51,11 @@ function bxb_dashboard_settings_page() {
     </div>
     <?php
 }
-
 /**
  * Display the README page.
  */
-function bxb            _readme_page() {
- # $readme_path = BXB_dashboard_DIR . 'README.md';
- $readme_path = plugin_dir_path(__FILE__) . 'README.md';
+function bxb_readme_page() {
+    $readme_path = BXB_dashboard_DIR . 'README.md';
 
     echo '<div class="wrap"><h1>📖 BxB HBBD README</h1>';
     
