@@ -26,22 +26,17 @@ require_once BXB_dashboard_DIR . 'includes/enqueue.php';
 // require_once BXB_dashboard_DIR . 'includes/acf-fields.php';
 require_once BXB_dashboard_DIR . 'includes/save-settings.php';
 
-
-
 // Include Modules
 require_once BXB_DASHBOARD_DIR . 'modules/BxB Dashboard/dashboard.php';
 require_once BXB_DASHBOARD_DIR . 'modules/README/readme.php';
-/**
- * Plugin activation hook.
- */
+
+/** Plugin activation hook. */
 function bxb_dashboard_activate() {
     // Actions on activation
 }
 register_activation_hook(__FILE__, 'bxb_dashboard_activate');
 
-/**
- * Plugin deactivation hook.
- */
+/** Plugin deactivation hook. */
 function bxb_dashboard_deactivate() {
     // Actions on deactivation
 }
