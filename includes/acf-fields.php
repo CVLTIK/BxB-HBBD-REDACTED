@@ -8,8 +8,8 @@ if (!defined('ABSPATH')) {
 // Check if ACF is installed and activated.
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
-        'key' => 'group_bxb_ldash_settings',
-        'title' => 'BxB ldash Settings',
+        'key' => 'group_bxb_dashboard_settings',
+        'title' => 'BxB dashboard Settings',
         'fields' => array(
             array(
                 'key' => 'field_header_logo',
@@ -31,7 +31,7 @@ if (function_exists('acf_add_local_field_group')) {
                 array(
                     'param' => 'options_page',
                     'operator' => '==',
-                    'value' => 'bxb-ldash',
+                    'value' => 'bxb-dashboard',
                 ),
             ),
         ),

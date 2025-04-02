@@ -6,4 +6,4 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
 }
 
 // Delete options.
-delete_option('bxb_ldash_settings');
+delete_option('bxb_dashboard_settings');
