@@ -13,6 +13,7 @@ function bxb_dashboard_add_admin_menu() {
         'BxB Dasboard Settings',
         'BxB Dashboard',
         'manage_options',
+        'bxb-dashboard',
         'bxb_dashboard_settings_page',
         'dashicons-table-col-after',
         25
@@ -22,7 +23,7 @@ function bxb_dashboard_add_admin_menu() {
     add_submenu_page(
         'BxB Dasboard Settings',
         'BxB HBBD README',
-        'README',
+        '📖 README',
         'manage_options',
         'bxb-dashboard-readme',
         'bxb_readme_page'
