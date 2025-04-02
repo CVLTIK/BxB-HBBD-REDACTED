@@ -6,11 +6,11 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Add Initial Page.
+ * Add Initial Page and Submenus.
  */
 function bxb_dashboard_add_admin_menu() {
     add_menu_page(
-        'BxB Dasboard Settings',
+        'BxB Dashboard Settings',
         'BxB Dashboard',
         'manage_options',
         'bxb-dashboard',
@@ -18,27 +18,27 @@ function bxb_dashboard_add_admin_menu() {
         'dashicons-table-col-after',
         25
     );
+
+    // Add README Page
+    add_submenu_page(
+        'bxb-dashboard', // ✅ Fix: Parent slug must match the main menu slug
+        'BxB HBBD README',
+        '📖 README',
+        'manage_options',
+        'bxb-hbbd-readme',
+        'bxb_hbbd_readme_page'
+    );
+
+    // Add Changelog Page
+    add_submenu_page(
+        'bxb-dashboard', // ✅ Fix: Parent slug must match the main menu slug
+        'BxB HBBD Changelog',
+        '📜 Changelog',
+        'manage_options',
+        'bxb-hbbd-changelog',
+        'bxb_hbbd_changelog_page'
+    );
 }
-
-  // Add README Page
-  add_submenu_page(
-    'bxb-hbbd',
-    'BxB HBBD README',
-    '📖 README',
-    'manage_options',
-    'bxb-hbbd-readme',
-    'bxb_hbbd_readme_page'
-);
-
-// Add Changelog Page
-add_submenu_page(
-    'bxb-hbbd',
-    'BxB HBBD Changelog',
-    '📜 Changelog',
-    'manage_options',
-    'bxb-hbbd-changelog',
-    'bxb_hbbd_changelog_page'
-);
 add_action('admin_menu', 'bxb_dashboard_add_admin_menu');
 
 /**
@@ -63,7 +63,7 @@ function bxb_dashboard_settings_page() {
  * Display the README page.
  */
 function bxb_hbbd_readme_page() {
-    $readme_path = BXB_HBBD_DIR . 'README.md';
+    $readme_path = plugin_dir_path(__FILE__) . 'README.md'; // ✅ Fix: Use `plugin_dir_path(__FILE__)`
 
     echo '<div class="wrap"><h1>📖 BxB HBBD README</h1>';
     
@@ -76,11 +76,12 @@ function bxb_hbbd_readme_page() {
 
     echo '</div>';
 }
+
 /**
  * Display the Changelog page.
  */
 function bxb_hbbd_changelog_page() {
-    $changelog_path = BXB_HBBD_DIR . 'CHANGELOG.md';
+    $changelog_path = plugin_dir_path(__FILE__) . 'CHANGELOG.md'; // ✅ Fix: Use `plugin_dir_path(__FILE__)`
 
     echo '<div class="wrap"><h1>📜 BxB HBBD Changelog</h1>';
     
