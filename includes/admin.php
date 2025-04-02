@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Add menu page.
+ * Add Initial Page.
  */
 function bxb_dashboard_add_admin_menu() {
     add_menu_page(
@@ -15,10 +15,30 @@ function bxb_dashboard_add_admin_menu() {
         'manage_options',
         'bxb-dashboard',
         'bxb_dashboard_settings_page',
-        'dashicons-admin-generic',
+        'dashicons-table-col-after',
         25
     );
 }
+
+  // Add README Page
+  add_submenu_page(
+    'bxb-hbbd',
+    'BxB HBBD README',
+    '📖 README',
+    'manage_options',
+    'bxb-hbbd-readme',
+    'bxb_hbbd_readme_page'
+);
+
+// Add Changelog Page
+add_submenu_page(
+    'bxb-hbbd',
+    'BxB HBBD Changelog',
+    '📜 Changelog',
+    'manage_options',
+    'bxb-hbbd-changelog',
+    'bxb_hbbd_changelog_page'
+);
 add_action('admin_menu', 'bxb_dashboard_add_admin_menu');
 
 /**
@@ -37,4 +57,39 @@ function bxb_dashboard_settings_page() {
         </form>
     </div>
     <?php
+}
+
+/**
+ * Display the README page.
+ */
+function bxb_hbbd_readme_page() {
+    $readme_path = BXB_HBBD_DIR . 'README.md';
+
+    echo '<div class="wrap"><h1>📖 BxB HBBD README</h1>';
+    
+    if (file_exists($readme_path)) {
+        $readme_content = file_get_contents($readme_path);
+        echo '<pre style="background:#fff; padding:10px; border:1px solid #ccc; white-space: pre-wrap;">' . esc_html($readme_content) . '</pre>';
+    } else {
+        echo '<p style="color:red;">README.md not found.</p>';
+    }
+
+    echo '</div>';
+}
+/**
+ * Display the Changelog page.
+ */
+function bxb_hbbd_changelog_page() {
+    $changelog_path = BXB_HBBD_DIR . 'CHANGELOG.md';
+
+    echo '<div class="wrap"><h1>📜 BxB HBBD Changelog</h1>';
+    
+    if (file_exists($changelog_path)) {
+        $changelog_content = file_get_contents($changelog_path);
+        echo '<pre style="background:#fff; padding:10px; border:1px solid #ccc; white-space: pre-wrap;">' . esc_html($changelog_content) . '</pre>';
+    } else {
+        echo '<p style="color:red;">CHANGELOG.md not found.</p>';
+    }
+
+    echo '</div>';
 }
