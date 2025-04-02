@@ -72,13 +72,9 @@ Use **GitLens** to manage distribution.
 * **Modular Structure** – Extend functionality with a well-organized codebase.
 * **Optimized Performance** – Efficient script and style enqueuing.
 
-## Changelog
-
-See [CHANGELOG.md]() for a history of updates.
-
 ## Reporting Issues
 
-If you find a bug or have a feature request, please open an issue on [GitHub](https://github.com/CVLTIK/BxB-ldash-REDACTED/issues).
+If you find a bug or have a feature request, please open an issue on [GitHub](https://https://github.com/CVLTIK/BxB-Layout-Dashboard/issues)
 
 ## License
 
