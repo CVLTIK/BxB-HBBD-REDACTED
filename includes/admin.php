@@ -8,30 +8,30 @@ if (!defined('ABSPATH')) {
 /**
  * Add menu page.
  */
-function bxb_ldash_add_admin_menu() {
+function bxb_dashboard_add_admin_menu() {
     add_menu_page(
-        'BxB ldash Settings',
-        'BxB ldash',
+        'BxB Dasboard Settings',
+        'BxB Dashboard',
         'manage_options',
-        'bxb-ldash',
-        'bxb_ldash_settings_page',
+        'bxb-dashboard',
+        'bxb_dashboard_settings_page',
         'dashicons-admin-generic',
         25
     );
 }
-add_action('admin_menu', 'bxb_ldash_add_admin_menu');
+add_action('admin_menu', 'bxb_dashboard_add_admin_menu');
 
 /**
  * Display settings page.
  */
-function bxb_ldash_settings_page() {
+function bxb_dashboard_settings_page() {
     ?>
     <div class="wrap">
-        <h1>BxB ldash Settings</h1>
+        <h1>BxB Settings</h1>
         <form method="post" action="options.php">
             <?php
-            settings_fields('bxb_ldash_options');
-            do_settings_sections('bxb_ldash');
+            settings_fields('bxb_dashboard_options');
+            do_settings_sections('bxb_dashboard');
             submit_button();
             ?>
         </form>

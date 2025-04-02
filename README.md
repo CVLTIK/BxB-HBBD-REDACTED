@@ -74,7 +74,7 @@ Use **GitLens** to manage distribution.
 
 ## Reporting Issues
 
-If you find a bug or have a feature request, please open an issue on [GitHub](https://https://github.com/CVLTIK/BxB-Layout-Dashboard/issues)
+If you find a bug or have a feature request, please open an issue on [GitHub](https://github.com/CVLTIK/BxB-Layout-Dashboard/issues)
 
 ## License
 

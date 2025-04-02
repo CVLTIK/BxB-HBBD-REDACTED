@@ -8,8 +8,8 @@ if (!defined('ABSPATH')) {
 /**
  * Register settings.
  */
-function bxb_ldash_register_settings() {
-    register_setting('bxb_ldash_options', 'bxb_ldash_settings');
-    add_settings_section('bxb_ldash_section', 'General Settings', null, 'bxb_ldash');
+function bxb_dashboard_register_settings() {
+    register_setting('bxb_dashboard_options', 'bxb_dashboard_settings');
+    add_settings_section('bxb_dashboard_section', 'General Settings', null, 'bxb_dashboard');
 }
-add_action('admin_init', 'bxb_ldash_register_settings');
+add_action('admin_init', 'bxb_dashboard_register_settings');
