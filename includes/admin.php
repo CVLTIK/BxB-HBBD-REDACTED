@@ -21,15 +21,13 @@ function bxb_dashboard_add_admin_menu() {
 
     // Add README Page
     add_submenu_page(
-        'BxB Dasboard Settings',
+        'bxb-dashboard', // ✅ This now correctly matches the parent menu
         'BxB HBBD README',
         '📖 README',
         'manage_options',
         'bxb-dashboard-readme',
         'bxb_readme_page'
     );
-
-
 }
 add_action('admin_menu', 'bxb_dashboard_add_admin_menu');
 
