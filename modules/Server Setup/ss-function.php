@@ -147,6 +147,6 @@ function bxb_server_setup_page() {
         }
     }
     
-    include 'includes/ss-view.php';  // Include HTML template
+    include 'modules/Server Setup/includes/ss-view.php';  // Include HTML template
 }
 ?>
