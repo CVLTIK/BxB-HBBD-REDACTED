@@ -31,7 +31,7 @@ $files_to_include = array(
             'modules/BxB Dashboard/dashboard.php',
         // Documentation
             'modules/Documentation/readme.php',
-            'modules/Documentation/plugin-changelog.php',
+            'modules/Documentation/plugine123-changelog.php',
             'modules/Documentation/layout-changelog.php',
         //Server Setup
             'modules/Server Setup/ss-orig-bake.php',
