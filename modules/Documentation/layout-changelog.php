@@ -14,7 +14,7 @@ if (!class_exists('Parsedown')) {
 function bxb_dashboard_add_layout_changelog_page() {
     add_submenu_page(
         'bxb-dashboard', // Parent menu slug where this submenu will appear
-        'LAYOUT CHANGELOG', // Page title displayed in the browser tab
+        'Layout Changelog', // Page title displayed in the browser tab
         'Layout Changelog', // Menu title displayed in the WordPress admin menu
         'manage_options', // Required capability (only admins can access this page)
         'bxb-layout-dashboard-changelog', // Unique slug used in the URL to identify this page
@@ -28,7 +28,7 @@ add_action('admin_menu', 'bxb_dashboard_add_layout_changelog_page');
 function bxb_layout_changelog_page() {
     $lchangelog_path = BXB_dashboard_DIR . 'Layout-Changelog.md';
 
-    echo '<div class="wrap"><h1>LAYOUT CHANGELOG</h1>';
+    echo '<div class="wrap"><h1>Layout Changelog</h1>';
     
     if (file_exists($lchangelog_path)) {
         $lchangelog_content = file_get_contents($lchangelog_path);
