@@ -1,11 +1,4 @@
 <?php
-/*
-Plugin Name: BxB Server Setup
-Description: A plugin to update all usernames with a specific client code to a new client code, update their display name and nickname to the company name, and update their passwords.
-Version: 2.4
-Author: Don Richards
-*/
-
 function update_usernames($client_code, $company_name) {
     global $wpdb;
 
@@ -153,7 +146,7 @@ function bxb_server_setup_menu() {
 add_action('admin_menu', 'bxb_server_setup_menu');
 
 // Enqueue custom styles and scripts
-/* function bxb_server_setup_styles() {
+function bxb_server_setup_styles() {
     echo '
     <style>
         .bxb-server-setup-container {
@@ -199,8 +192,7 @@ add_action('admin_menu', 'bxb_server_setup_menu');
         }
         .bxb-server-setup-form input[type="submit"]:hover {
             background: #005a87;
-        }
-        .bxb-server-setup-results ul {
+        }        .bxb-server-setup-results ul {
             list-style-type: none;
             padding: 0;
         }
@@ -215,7 +207,7 @@ add_action('admin_menu', 'bxb_server_setup_menu');
     </style>
     ';
 }
-add_action('admin_head', 'bxb_server_setup_styles'); */
+add_action('admin_head', 'bxb_server_setup_styles');
 
 // Display admin page
 function bxb_server_setup_page() {
