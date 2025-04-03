@@ -20,6 +20,11 @@ function bxb_dashboard_add_changelog_page() {
 }
 add_action('admin_menu', 'bxb_dashboard_add_changelog_page');
 
+// Include Parsedown if not already loaded.
+if (!class_exists('Parsedown')) {
+    require_once plugin_dir_path(__FILE__) . 'includes/Parsedown.php';
+}
+
 /**
  * Display CHANGELOG Page.
  */
@@ -30,10 +35,15 @@ function bxb_changelog_page() {
     
     if (file_exists($changelog_path)) {
         $changelog_content = file_get_contents($changelog_path);
-        echo '<pre style="background:#fff; padding:10px; border:1px solid #ccc; white-space: pre-wrap;">' . esc_html($changelog_content) . '</pre>';
-    } else {
-        echo '<p style="color:red;">CHANGELOG.md not found.</p>';
+           
+        // Convert Markdown to HTML using Parsedown
+            $Parsedown = new Parsedown();
+            $changelog_html = $Parsedown->text($changelog_content);
+            
+            echo '<div style="background:#fff; padding:15px; border:1px solid #ccc; max-width: 800px;">' . $changelog_html . '</div>';
+        } else {
+            echo '<p style="color:red;">CHANGELOG.md not found.</p>';
+        }
+    
+        echo '</div>';
     }
-
-    echo '</div>';
-}
