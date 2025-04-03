@@ -10,7 +10,7 @@ if (!class_exists('Parsedown')) {
     require_once plugin_dir_path(__FILE__) . 'includes/parsedown.php';
 }
 
-/* Add PLUGIN CHANGELOG Page */*""
+/* Add PLUGIN CHANGELOG Page */
 function bxb_dashboard_add_plugin_changelog_page() {
     add_submenu_page(
         'bxb-dashboard', // Parent menu slug where this submenu will appear
