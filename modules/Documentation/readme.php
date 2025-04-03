@@ -28,7 +28,7 @@ add_action('admin_menu', 'bxb_dashboard_add_readme_page');
 function bxb_readme_page() {
     $readme_path = BXB_dashboard_DIR . 'README.md';
 
-    echo '<div class="wrap"><h1> README</h1>';
+    echo '<div class="wrap"><h1> README on break</h1>';
 
     if (file_exists($readme_path)) {
         $readme_content = file_get_contents($readme_path);
