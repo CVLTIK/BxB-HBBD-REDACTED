@@ -19,7 +19,7 @@
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/CVLTIK/BxB-Layout-Dashboard.git
+   git clone https://github.com/CVLTIK/bxb-layout-dashboard-alpha
    ```
 2. Upload the extracted folder to `/wp-content/plugins/`.
 3. Navigate to **Plugins > Installed Plugins** and activate it.
