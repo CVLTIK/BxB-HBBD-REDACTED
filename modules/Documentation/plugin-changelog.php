@@ -15,7 +15,7 @@ function bxb_dashboard_add_plugin_changelog_page() {
     add_submenu_page(
         'bxb-dashboard', // Parent menu slug where this submenu will appear
         'PLUGIN CHANGELOG', // Page title displayed in the browser tab
-        'PLUGIN CHANGELOG', // Menu title displayed in the WordPress admin menu
+        'Plugin Changelog', // Menu title displayed in the WordPress admin menu
         'manage_options', // Required capability (only admins can access this page)
         'bxb-plugin-changelog', // Unique slug used in the URL to identify this page
         'bxb_plugin_changelog_page' // Callback function that renders the page content
