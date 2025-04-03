@@ -22,7 +22,7 @@ define('BXB_dashboard_DIR', plugin_dir_path(__FILE__));
 define('BXB_dashboard_URL', plugin_dir_url(__FILE__));
 
 // Include required files.
-require_once BXB_dashboard_DIR . 'includes/admin.php';
+// require_once BXB_dashboard_DIR . 'includes/admin.php';
 require_once BXB_dashboard_DIR . 'includes/enqueue.php';
 require_once BXB_dashboard_DIR . 'includes/acf-fields.php';
 require_once BXB_dashboard_DIR . 'includes/settings.php';
