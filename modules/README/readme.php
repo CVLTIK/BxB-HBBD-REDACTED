@@ -10,9 +10,7 @@ if (!class_exists('Parsedown')) {
     require_once plugin_dir_path(__FILE__) . 'includes/parsedown.php';
 }
 
-/**
- * Add README Page.
- */
+/* Add README Page. */
 function bxb_dashboard_add_readme_page() {
     add_submenu_page(
         'bxb-dashboard',
@@ -25,11 +23,9 @@ function bxb_dashboard_add_readme_page() {
 }
 add_action('admin_menu', 'bxb_dashboard_add_readme_page');
 
-/**
- * Display README Page with Markdown Formatting.
- */
+/* Display README Page with Markdown Formatting.*/
 function bxb_readme_page() {
-    $changelog_path = BXB_dashboard_DIR . 'README.md';
+    $readme_path = BXB_dashboard_DIR . 'README.md';
 
     echo '<div class="wrap"><h1> BxB README</h1>';
 

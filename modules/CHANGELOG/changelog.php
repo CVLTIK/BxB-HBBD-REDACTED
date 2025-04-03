@@ -5,9 +5,12 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-/**
- * Add CHANGELOG Page.
- */
+// Include Parsedown if not already loaded.
+if (!class_exists('Parsedown')) {
+    require_once plugin_dir_path(__FILE__) . 'includes/parsedown.php';
+}
+
+/* Add CHANGELOG Page */
 function bxb_dashboard_add_changelog_page() {
     add_submenu_page(
         'bxb-dashboard',
@@ -20,14 +23,7 @@ function bxb_dashboard_add_changelog_page() {
 }
 add_action('admin_menu', 'bxb_dashboard_add_changelog_page');
 
-// Include Parsedown if not already loaded.
-if (!class_exists('Parsedown')) {
-    require_once plugin_dir_path(__FILE__) . 'includes/parsedown.php';
-}
-
-/**
- * Display CHANGELOG Page.
- */
+/*  Display CHANGELOG Page. */
 function bxb_changelog_page() {
     $changelog_path = BXB_dashboard_DIR . 'CHANGELOG.md';
 
