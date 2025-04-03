@@ -29,7 +29,7 @@ add_action('admin_menu', 'bxb_dashboard_add_readme_page');
  * Display README Page with Markdown Formatting.
  */
 function bxb_readme_page() {
-    $readme_path = plugin_dir_path(__FILE__) . 'README.md';
+    $changelog_path = BXB_dashboard_DIR . 'README.md';
 
     echo '<div class="wrap"><h1> BxB README</h1>';
 
