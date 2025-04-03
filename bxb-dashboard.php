@@ -30,8 +30,8 @@ require_once BXB_dashboard_DIR . 'includes/enqueue.php';
 
 
 // Include Modules
-require_once BXB_DASHBOARD_DIR . 'modules/BxB Dashboard/dashboard.php';
-require_once BXB_DASHBOARD_DIR . 'modules/README/readme.php';
+require_once BXB_dashboard_DIR . 'modules/BxB Dashboard/dashboard.php';
+require_once BXB_dashboard_DIR . 'modules/README/readme.php';
 /**
  * Plugin activation hook.
  */
