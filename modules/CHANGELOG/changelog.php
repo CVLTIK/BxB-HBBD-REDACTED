@@ -31,7 +31,7 @@ if (!class_exists('Parsedown')) {
 function bxb_changelog_page() {
     $changelog_path = BXB_dashboard_DIR . 'CHANGELOG.md';
 
-    echo '<div class="wrap"><h1>📖 BxB HBBD CHANGELOG</h1>';
+    echo '<div class="wrap"><h1>CHANGELOG</h1>';
     
     if (file_exists($changelog_path)) {
         $changelog_content = file_get_contents($changelog_path);
