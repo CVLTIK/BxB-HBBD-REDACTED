@@ -19,6 +19,10 @@ This document records all notable changes made to the BxB Layout Dashboard plugi
 * Resolved an issue where the plugin would fail to activate, leading to a **500 internal server error**.
 * Fixed incorrect formatting of `.md` files when displayed in the admin panel.
 
+### Requests
+
+- Change request once to if exists run in the bxb dashboard php.
+
 ---
 
 ## [1.0.1] – 2025-04-02
