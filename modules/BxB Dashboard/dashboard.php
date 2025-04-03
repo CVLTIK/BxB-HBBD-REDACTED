@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
  */
 function bxb_dashboard_add_admin_menu() {
     add_menu_page(
-        'BxB Dashboard Settings',
+        'BxB Dashboard',
         'BxB Dashboard',
         'manage_options',
         'bxb-dashboard',
@@ -27,7 +27,7 @@ add_action('admin_menu', 'bxb_dashboard_add_admin_menu');
 function bxb_dashboard() {
     ?>
     <div class="wrap">
-        <h1>BxB Settings</h1>
+        <h1>BxB Dashboard</h1>
         <form method="post" action="options.php">
             <?php
             settings_fields('bxb_dashboard_options');
