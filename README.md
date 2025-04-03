@@ -1,17 +1,18 @@
 # BxB Layout Dashboard Plugin
 
-**A WordPress dashboard plugin for streamlined site setup and theme management.**
+A WordPress dashboard plugin designed for **streamlined site setup and theme management**.
 
-###### <div align="right"><a id=-design-by-t2></a><sub>// design by DEV</sub></div>
+## Table of Contents
 
-<div align="center"><br>
-<a href="#installation"><kbd>   <br>  Installation  <br>   </kbd></a>
-<a href="#access"><kbd>   <br>  Development and Access  <br>   </kbd></a
-<a href="#usage"><kbd>   <br>  Usage <br>   </kbd></a>
-<a href="#updating"><kbd>   <br>  Updating  <br>   </kbd></a>
-<a href="#features"><kbd>   <br>  Features <br>   </kbd></a>
-</div>
-<a id="installation"></a>
+* [Installation](#installation)
+* [Development & Access](#development--access)
+* [Usage](#usage)
+* [Updating the Plugin](#updating-the-plugin)
+* [Features](#features)
+* [Reporting Issues](#reporting-issues)
+* [License](#license)
+
+---
 
 ## Installation
 
@@ -22,44 +23,46 @@
    git clone https://github.com/CVLTIK/bxb-layout-dashboard-alpha
    ```
 2. Upload the extracted folder to `/wp-content/plugins/`.
-3. Navigate to **Plugins > Installed Plugins** and activate it.
+3. Navigate to **Plugins > Installed Plugins** in WordPress and activate the plugin.
 
-<a id="access"></a>
+---
 
 ## Development & Access
 
-The Dev Site is hosted on **Kinsta**.
+The development site is hosted on **Kinsta**.
+
 To access the Kinsta Tunnel, visit:
 [Heimdall Dashboard](https://my.kinsta.com/sites/details/4a83a403-56dd-430c-81d5-f3985a180ea4/03d0928d-4ed1-432c-a63c-c0e70925f05f?idCompany=8e1ab945-725e-425f-8819-f55d846b58a3)
 
-<a id="usage"></a>
+---
 
 ## Usage
 
-**Configure Settings**
+### Configure Settings
 
-* Navigate to **BxB Dashboard** in the admin panel.
-* Adjust headers, colors, and other global options.
+1. Navigate to **BxB Dashboard** in the WordPress admin panel.
+2. Adjust **headers, colors, and other global options** as needed.
 
-**Apply Customizations**
+### Apply Customizations
 
-* Changes reflect dynamically on the site.
-* Use ACF fields or snippets for additional flexibility.
+* Changes are **dynamically applied** across the site.
+* Use **ACF fields or custom snippets** to extend functionality.
 
-<a id="updating"></a>
+---
 
 ## Updating the Plugin
 
-To update the site from the main branch:
+To update the plugin from the main branch, run:
 
 ```sh
 git pull origin main
 ```
 
-in the VS terminal using ths SSH Tunnel
-Use **GitLens** to manage distribution.
+in the VS Code terminal using the **SSH Tunnel**.
 
-<a id="features"></a>
+Use **GitLens** to manage code updates and distribution.
+
+---
 
 ## Features
 
@@ -72,10 +75,18 @@ Use **GitLens** to manage distribution.
 * **Modular Structure** – Extend functionality with a well-organized codebase.
 * **Optimized Performance** – Efficient script and style enqueuing.
 
+---
+
 ## Reporting Issues
 
-If you find a bug or have a feature request, please open an issue on [GitHub](https://github.com/CVLTIK/BxB-Layout-Dashboard/issues)
+If you encounter a bug or have a feature request, please **open an issue** on [GitHub](https://github.com/CVLTIK/BxB-Layout-Dashboard/issues).
+
+---
 
 ## License
 
 This plugin is licensed under the **MPL-2.0**.
+
+---
+
+This version is **clear, structured, and easy to read** without unnecessary elements. Let me know if you'd like further refinements! 🚀
