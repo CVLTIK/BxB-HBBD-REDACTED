@@ -22,6 +22,7 @@ This document records all notable changes made to the BxB Layout Dashboard plugi
 ### Requests
 
 - Change request once to if exists run in the bxb dashboard php.
+- Define Categories to split snippets and plugins https://wpcode.com/
 
 ---
 
