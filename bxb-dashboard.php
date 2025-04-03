@@ -35,7 +35,7 @@ require_once BXB_dashboard_DIR . 'modules/Documentation/plugin-changelog.php';
 require_once BXB_dashboard_DIR . 'modules/Documentation/layout-changelog.php';
 //Server Setup
 # require_once BXB_dashboard_DIR . 'modules/Server Setup/server-setup.php';
-# require_once BXB_dashboard_DIR . 'modules/Server Setup/ss-function.php';
+require_once BXB_dashboard_DIR . 'modules/Server Setup/ss-function.php';
 require_once BXB_dashboard_DIR . 'modules/Server Setup/includes/ss-view.php';
   
 /* Plugin activation hook. */
