@@ -27,21 +27,20 @@ require_once BXB_dashboard_DIR . 'includes/parsedown.php';
 require_once BXB_dashboard_DIR . 'includes/save-global-settings.php';
 
 // Include Modules
+// BxB Dashboard
 require_once BXB_dashboard_DIR . 'modules/BxB Dashboard/dashboard.php';
-require_once BXB_dashboard_DIR . 'modules/README/readme.php';
-require_once BXB_dashboard_DIR . 'modules/CHANGELOG/changelog.php';
+// Documentation
+require_once BXB_dashboard_DIR . 'modules/Documentation/readme.php';
+require_once BXB_dashboard_DIR . 'modules/Documentation/plugin-changelog.php';
+require_once BXB_dashboard_DIR . 'modules/Documentation/layout-changelog.php';
 
-/**
- * Plugin activation hook.
- */
+/* Plugin activation hook. */
 function bxb_dashboard_activate() {
     // Actions on activation
 }
 register_activation_hook(__FILE__, 'bxb_dashboard_activate');
 
-/**
- * Plugin deactivation hook.
- */
+/** Plugin deactivation hook. */
 function bxb_dashboard_deactivate() {
     // Actions on deactivation
 }

@@ -1,4 +1,4 @@
-# Changelog – [BxB Layout Dashboard](https://github.com/CVLTIK/BxB-Layout-Dashboard)
+# Plugin Changelog – [BxB Layout Dashboard](https://github.com/CVLTIK/BxB-Layout-Dashboard)
 
 This document records all notable changes made to the BxB Layout Dashboard plugin, including new features, updates, and bug fixes.
 
@@ -12,6 +12,7 @@ This document records all notable changes made to the BxB Layout Dashboard plugi
 
 * Refactored the plugin's structure to use a **modular approach**, where multiple separate files handle different pages, instead of managing everything within a single file.
 * Adjusted the necessity of an admin page, making the plugin more streamlined in its navigation and management.
+* Dashboard "Settings" to "Dashboard" to begin propir scaffolding.
 
 ### Fixed
 
@@ -25,7 +26,7 @@ This document records all notable changes made to the BxB Layout Dashboard plugi
 ### Added
 
 * Verified **compatibility** with the latest tested version of WordPress.
-* Introduced a **changelog (`CHANGELOG.md`)** to document all updates and changes.
+* Introduced a **changelog (`Plugin-Changelog.md`)** to document all updates and changes.
 * Created a **README file (`README.md`)** for better documentation of the plugin's purpose and setup.
 * Developed the **initial plugin script**, establishing the core functionality.
 * Implemented a **WordPress Activation Hook**, ensuring proper setup when the plugin is activated.

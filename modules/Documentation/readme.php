@@ -13,21 +13,22 @@ if (!class_exists('Parsedown')) {
 /* Add README Page. */
 function bxb_dashboard_add_readme_page() {
     add_submenu_page(
-        'bxb-dashboard',
-        'README',
-        'README',
-        'manage_options',
-        'bxb-dashboard-readme',
-        'bxb_readme_page'
+        'bxb-dashboard', // Parent menu slug where this submenu will appear
+        'README', // Page title displayed in the browser tab
+        'README', // Menu title displayed in the WordPress admin menu
+        'manage_options', // Required capability (only admins can access this page)
+        'bxb-dashboard-readme', // Unique slug used in the URL to identify this page
+        'bxb_readme_page' // Callback function that renders the page content
     );
 }
+
 add_action('admin_menu', 'bxb_dashboard_add_readme_page');
 
 /* Display README Page with Markdown Formatting.*/
 function bxb_readme_page() {
     $readme_path = BXB_dashboard_DIR . 'README.md';
 
-    echo '<div class="wrap"><h1> BxB README</h1>';
+    echo '<div class="wrap"><h1> README</h1>';
 
     if (file_exists($readme_path)) {
         $readme_content = file_get_contents($readme_path);

@@ -86,7 +86,3 @@ If you encounter a bug or have a feature request, please **open an issue** on [G
 ## License
 
 This plugin is licensed under the **MPL-2.0**.
-
----
-
-This version is **clear, structured, and easy to read** without unnecessary elements. Let me know if you'd like further refinements! 🚀
