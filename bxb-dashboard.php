@@ -31,10 +31,10 @@ $files_to_include = array(
             'modules/BxB Dashboard/dashboard.php',
         // Documentation
             'modules/Documentation/readme.php',
-            'modules/Documentation/plugine123-changelog.php',
+            'modules/Documentation/plugin-changelog.php',
             'modules/Documentation/layout-changelog.php',
         //Server Setup
-            'modules/Server Setup/ss-orig-bake.php',
+            'modules/Server Setup/ss-orig-bak.php',
 );
 
 foreach ($files_to_include as $file) {
@@ -42,21 +42,6 @@ foreach ($files_to_include as $file) {
         require_once BXB_dashboard_DIR . $file;
     }
 }
-
-/* // Include required global files.
-require_once BXB_dashboard_DIR . 'includes/enqueue.php';
-require_once BXB_dashboard_DIR . 'includes/parsedown.php';
-require_once BXB_dashboard_DIR . 'includes/save-global-settings.php';
-
-// Include Modules
-// BxB Dashboard
-require_once BXB_dashboard_DIR . 'modules/BxB Dashboard/dashboard.php';
-// Documentation
-require_once BXB_dashboard_DIR . 'modules/Documentation/readme.php';
-require_once BXB_dashboard_DIR . 'modules/Documentation/plugin-changelog.php';
-require_once BXB_dashboard_DIR . 'modules/Documentation/layout-changelog.php';
-//Server Setup
-require_once BXB_dashboard_DIR . 'modules/Server Setup/ss-orig-bak.php'; */
   
 /* Plugin activation hook. */
 function bxb_dashboard_activate() {
