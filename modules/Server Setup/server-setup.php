@@ -147,7 +147,7 @@ function generate_csv_file($updated_users, $client_code, $company_name) {
 }
 
 // Create admin menu
-function bxb_server_setup_menu() {
+/* function bxb_server_setup_menu() {
     add_menu_page('BxB Server Setup', 'BxB Server Setup', 'manage_options', 'bxb-server-setup', 'bxb_server_setup_page', '', 2);
 }
 add_action('admin_menu', 'bxb_server_setup_menu');
@@ -214,7 +214,7 @@ function bxb_server_setup_styles() {
         }
     </style>
     ';
-}
+} */
 add_action('admin_head', 'bxb_server_setup_styles');
 
 // Display admin page
