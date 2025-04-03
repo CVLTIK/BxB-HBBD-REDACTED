@@ -24,7 +24,7 @@ add_action('admin_menu', 'bxb_dashboard_add_readme_page');
  * Display README Page.
  */
 function bxb_readme_page() {
-    $readme_path = BXB_DASHBOARD_DIR . 'README.md';
+    $readme_path = BXB_dashboard_DIR . 'README.md';
 
     echo '<div class="wrap"><h1>📖 BxB HBBD README</h1>';
     
