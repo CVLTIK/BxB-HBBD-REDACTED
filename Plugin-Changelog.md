@@ -7,6 +7,7 @@ This document records all notable changes made to the BxB Layout Dashboard plugi
 ### Added
 
 * Implemented **Parsedown** to improve the display of Markdown (`.md`) files within the admin dashboard.
+* Added a statement in the main plugin file that will allow th code to keep rendering even if the file is misnamed or non existant. 
 
 ### Changed
 
