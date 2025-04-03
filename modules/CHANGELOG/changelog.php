@@ -22,7 +22,7 @@ add_action('admin_menu', 'bxb_dashboard_add_changelog_page');
 
 // Include Parsedown if not already loaded.
 if (!class_exists('Parsedown')) {
-    require_once plugin_dir_path(__FILE__) . 'includes/Parsedown.php';
+    require_once plugin_dir_path(__FILE__) . 'includes/parsedown.php';
 }
 
 /**
