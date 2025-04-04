@@ -89,15 +89,6 @@ function bxb_dashboard_add_admin_menu() {
         'bxb-snippets-dashboard',
         'bxb_snippets_dashboard_page'
     );
-
-    add_submenu_page(
-        'bxb-dashboard',
-        'Documentation',
-        'Documentation',
-        'manage_options',
-        'bxb-documentation',
-        'bxb_documentation_page'
-    );
 }
 add_action('admin_menu', 'bxb_dashboard_add_admin_menu');
 
@@ -365,80 +356,6 @@ function bxb_snippets_dashboard_page() {
                     }
                 }
             });
-        });
-    });
-    </script>
-    <?php
-}
-
-// Documentation Page
-function bxb_documentation_page() {
-    if (!current_user_can('manage_options')) {
-        wp_die(__('You do not have sufficient permissions to access this page.'));
-    }
-    ?>
-    <div class="wrap">
-        <h1>Documentation</h1>
-        
-        <div class="nav-tab-wrapper">
-            <a href="#readme" class="nav-tab nav-tab-active">README</a>
-            <a href="#plugin-changelog" class="nav-tab">Plugin Changelog</a>
-            <a href="#layout-changelog" class="nav-tab">Layout Changelog</a>
-        </div>
-        
-        <div id="readme" class="tab-content" style="display: block;">
-            <?php
-            $readme_file = BXB_dashboard_DIR . 'modules/Documentation/includes/README.md';
-            if (file_exists($readme_file)) {
-                $parsedown = new Parsedown();
-                echo $parsedown->text(file_get_contents($readme_file));
-            } else {
-                echo '<p>README file not found.</p>';
-            }
-            ?>
-        </div>
-        
-        <div id="plugin-changelog" class="tab-content" style="display: none;">
-            <?php
-            $changelog_file = BXB_dashboard_DIR . 'modules/Documentation/includes/plugin-changelog.md';
-            if (file_exists($changelog_file)) {
-                $parsedown = new Parsedown();
-                echo $parsedown->text(file_get_contents($changelog_file));
-            } else {
-                echo '<p>Plugin changelog file not found.</p>';
-            }
-            ?>
-        </div>
-        
-        <div id="layout-changelog" class="tab-content" style="display: none;">
-            <?php
-            $layout_changelog_file = BXB_dashboard_DIR . 'modules/Documentation/includes/layout-changelog.md';
-            if (file_exists($layout_changelog_file)) {
-                $parsedown = new Parsedown();
-                echo $parsedown->text(file_get_contents($layout_changelog_file));
-            } else {
-                echo '<p>Layout changelog file not found.</p>';
-            }
-            ?>
-        </div>
-    </div>
-
-    <script>
-    jQuery(document).ready(function($) {
-        $('.nav-tab').on('click', function(e) {
-            e.preventDefault();
-            
-            // Remove active class from all tabs
-            $('.nav-tab').removeClass('nav-tab-active');
-            
-            // Add active class to clicked tab
-            $(this).addClass('nav-tab-active');
-            
-            // Hide all content
-            $('.tab-content').hide();
-            
-            // Show selected content
-            $($(this).attr('href')).show();
         });
     });
     </script>
