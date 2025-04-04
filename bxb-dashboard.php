@@ -80,15 +80,6 @@ function bxb_dashboard_add_admin_menu() {
         'dashicons-admin-generic',
         2
     );
-
-    add_submenu_page(
-        'bxb-dashboard',
-        'Snippets',
-        'Snippets',
-        'manage_options',
-        'bxb-snippets-dashboard',
-        'bxb_snippets_dashboard_page'
-    );
 }
 add_action('admin_menu', 'bxb_dashboard_add_admin_menu');
 
