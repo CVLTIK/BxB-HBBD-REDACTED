@@ -1,0 +1,116 @@
+.bxb-server-setup-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.bxb-server-setup-form, 
+.bxb-server-setup-results {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    padding: 20px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+    width: 100%;
+}
+
+.bxb-server-setup-form h2, 
+.bxb-server-setup-results h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #23282d;
+}
+
+.bxb-server-setup-form table, 
+.bxb-server-setup-results table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.bxb-server-setup-form table th, 
+.bxb-server-setup-results table th {
+    width: 25%;
+    text-align: left;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+.bxb-server-setup-form table td, 
+.bxb-server-setup-results table td {
+    width: 75%;
+    padding-bottom: 10px;
+}
+
+.bxb-server-setup-form input[type="text"], 
+.bxb-server-setup-form input[type="email"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.07);
+}
+
+.bxb-server-setup-form input[type="submit"] {
+    background: #0073aa;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 14px;
+    line-height: 1.4;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.bxb-server-setup-form input[type="submit"]:hover {
+    background: #005a87;
+}
+
+.bxb-server-setup-results ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.bxb-server-setup-results ul li {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+
+.bxb-server-setup-results ul ul {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.bxb-server-setup-results ul ul li {
+    background: none;
+    padding: 5px 0;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+@media (max-width: 700px) {
+    .bxb-server-setup-form, 
+    .bxb-server-setup-results {
+        width: 100%;
+    }
+    
+    .bxb-server-setup-form table th, 
+    .bxb-server-setup-results table th {
+        width: 100%;
+        display: block;
+        padding-bottom: 5px;
+    }
+    
+    .bxb-server-setup-form table td, 
+    .bxb-server-setup-results table td {
+        width: 100%;
+        display: block;
+        padding-bottom: 15px;
+    }
+} 

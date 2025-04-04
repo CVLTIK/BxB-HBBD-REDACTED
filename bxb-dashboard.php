@@ -33,8 +33,10 @@ $files_to_include = array(
             'modules/Documentation/readme.php',
             'modules/Documentation/plugin-changelog.php',
             'modules/Documentation/layout-changelog.php',
-        //Server Setup
-            'modules/Server Setup/ss-orig-bak.php',
+        // Server Setup
+            'modules/Server Setup/server-setup.php',
+        // Script Manager
+            'modules/Script Manager/script-manager.php',
 );
 
 foreach ($files_to_include as $file) {

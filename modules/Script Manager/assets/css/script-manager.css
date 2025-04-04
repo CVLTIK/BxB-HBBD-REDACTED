@@ -1,0 +1,65 @@
+.bxb-module-script-manager {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.script-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 3px;
+}
+
+.script-row input[type="text"],
+.script-row input[type="url"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.script-row select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background: #fff;
+}
+
+.script-row label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+}
+
+#add-script {
+    margin-top: 10px;
+    background: #2271b1;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#add-script:hover {
+    background: #135e96;
+}
+
+.remove-script {
+    color: #dc3232;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.remove-script:hover {
+    color: #a00;
+} 
