@@ -3,7 +3,7 @@
  * Plugin Name: BxB Layout Dashboard
  * Plugin URI: https://github.com/CVLTIK/BxB-Layout-Dashboard
  * Description: A WordPress dashboard plugin for setting up headers, footers, colors, and global settings.
- * Version: 1.0.1
+ * Version: 1.0.
  * Author: CVTIK / BXBMedia
  * Author URI: 
  * License: MPL-2.0
@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants.
-define('BXB_dashboard_VERSION', '1.0.1');
+define('BXB_dashboard_VERSION', '1.0.2');
 define('BXB_dashboard_DIR', plugin_dir_path(__FILE__));
 define('BXB_dashboard_URL', plugin_dir_url(__FILE__));
 
