@@ -22,9 +22,9 @@ define('BXB_dashboard_DIR', plugin_dir_path(__FILE__));
 define('BXB_dashboard_URL', plugin_dir_url(__FILE__));
 
 // Include required files
-require_once BXB_dashboard_DIR . 'includes/global-functions.php';
-require_once BXB_dashboard_DIR . 'includes/global-variables.php';
 require_once BXB_dashboard_DIR . 'includes/parsedown.php';
+require_once BXB_dashboard_DIR . 'includes/enqueue.php';
+require_once BXB_dashboard_DIR . 'includes/save-global-settings.php';
 
 // Include module files
 require_once BXB_dashboard_DIR . 'modules/Documentation/documentation.php';
@@ -42,24 +42,6 @@ add_action('plugins_loaded', function() {
     }
 });
 
-// Initialize Server Setup module and its submodules
-add_action('plugins_loaded', function() {
-    if (class_exists('BxB_Server_Setup')) {
-        global $bxb_server_setup;
-        $bxb_server_setup = new BxB_Server_Setup();
-    }
-    
-    if (class_exists('BxB_Server_Setup_Docs')) {
-        global $bxb_server_setup_docs;
-        $bxb_server_setup_docs = new BxB_Server_Setup_Docs();
-    }
-    
-    if (class_exists('BxB_Server_Setup_Toggle')) {
-        global $bxb_server_setup_toggle;
-        $bxb_server_setup_toggle = new BxB_Server_Setup_Toggle();
-    }
-});
-  
 /* Plugin activation hook. */
 function bxb_dashboard_activate() {
     // Actions on activation
