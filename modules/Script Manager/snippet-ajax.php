@@ -27,4 +27,42 @@ function bxb_toggle_snippet() {
     
     wp_send_json_success();
 }
-add_action('wp_ajax_toggle_snippet', 'bxb_toggle_snippet'); 
+add_action('wp_ajax_toggle_snippet', 'bxb_toggle_snippet');
+
+/* Handle Add New Snippet AJAX Request */
+function bxb_add_snippet() {
+    check_ajax_referer('add_snippet', 'nonce');
+    
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error('Insufficient permissions');
+    }
+    
+    $name = sanitize_text_field($_POST['name']);
+    $description = sanitize_textarea_field($_POST['description']);
+    
+    if (empty($name) || empty($description)) {
+        wp_send_json_error('Name and description are required');
+    }
+    
+    $snippets = get_option('bxb_snippets', array());
+    $slug = sanitize_title($name);
+    
+    // Check if snippet with this name already exists
+    if (isset($snippets[$slug])) {
+        wp_send_json_error('A snippet with this name already exists');
+    }
+    
+    // Add new snippet
+    $snippets[$slug] = array(
+        'name' => $name,
+        'description' => $description,
+        'code' => '',
+        'documentation' => '',
+        'enabled' => false,
+        'secure' => true
+    );
+    
+    update_option('bxb_snippets', $snippets);
+    wp_send_json_success();
+}
+add_action('wp_ajax_add_snippet', 'bxb_add_snippet'); 
