@@ -60,7 +60,7 @@ function bxb_dashboard_deactivate() {
 }
 register_deactivation_hook(__FILE__, 'bxb_dashboard_deactivate');
 
-/* function bxb_dashboard_add_admin_menu() {
+ function bxb_dashboard_add_admin_menu() {
     add_menu_page(
         'BxB Dashboard',
         'BxB Dashboard',
@@ -71,7 +71,7 @@ register_deactivation_hook(__FILE__, 'bxb_dashboard_deactivate');
         2
     );
 
-    // Add submenu items
+ /*   // Add submenu items
     add_submenu_page(
         'bxb-dashboard',
         'Snippets',
