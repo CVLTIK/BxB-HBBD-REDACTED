@@ -26,7 +26,7 @@ add_action('admin_menu', 'bxb_dashboard_add_plugin_changelog_page');
 
 /*  Display CHANGELOG Page. */
 function bxb_plugin_changelog_page() {
-    $pchangelog_path = BXB_dashboard_DIR . 'modules/Documentation/Plugin-Changelog.md';
+    $pchangelog_path = BXB_dashboard_DIR . 'modules/Documentation/includes/plugin-changelog.md';
 
     echo '<div class="wrap"><h1>Plugin Changelog</h1>';
     
@@ -39,7 +39,7 @@ function bxb_plugin_changelog_page() {
             
             echo '<div style="background:#fff; padding:15px; border:1px solid #ccc; max-width: 800px;">' . $pchangelog_html . '</div>';
         } else {
-            echo '<p style="color:red;">Plugin-Changelog.md not found.</p>';
+            echo '<p style="color:red;">plugin-changelog.md not found.</p>';
         }
     
         echo '</div>';

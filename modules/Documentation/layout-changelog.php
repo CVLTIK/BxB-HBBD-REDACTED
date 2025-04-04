@@ -26,7 +26,7 @@ add_action('admin_menu', 'bxb_dashboard_add_layout_changelog_page');
 
 /*  Display LAYOUT CHANGELOG Page. */
 function bxb_layout_changelog_page() {
-    $lchangelog_path = BXB_dashboard_DIR . 'modules/Documentation/Layout-Changelog.md';
+    $lchangelog_path = BXB_dashboard_DIR . 'modules/Documentation/includes/layout-changelog.md';
 
     echo '<div class="wrap"><h1>Layout Changelog</h1>';
     
@@ -39,7 +39,7 @@ function bxb_layout_changelog_page() {
             
             echo '<div style="background:#fff; padding:15px; border:1px solid #ccc; max-width: 800px;">' . $lchangelog_html . '</div>';
         } else {
-            echo '<p style="color:red;">Layout-Changelog.md not found.</p>';
+            echo '<p style="color:red;">layout-changelog.md not found.</p>';
         }
     
         echo '</div>';
