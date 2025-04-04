@@ -37,6 +37,9 @@ $files_to_include = array(
             'modules/Server Setup/server-setup-toggle.php',
         // Script Manager
             'modules/Script Manager/script-manager.php',
+            'modules/Script Manager/snippets-dashboard.php',
+            'modules/Script Manager/snippet-settings.php',
+            'modules/Script Manager/snippet-ajax.php',
 );
 
 // Initialize modules
