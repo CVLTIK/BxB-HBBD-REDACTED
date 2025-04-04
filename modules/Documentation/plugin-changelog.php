@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 
 // Include Parsedown if not already loaded.
 if (!class_exists('Parsedown')) {
-    require_once plugin_dir_path(__FILE__) . 'includes/parsedown.php';
+    require_once plugin_dir_path(__FILE__) . '../../includes/parsedown.php';
 }
 
 /* Add PLUGIN CHANGELOG Page */
@@ -26,7 +26,7 @@ add_action('admin_menu', 'bxb_dashboard_add_plugin_changelog_page');
 
 /*  Display CHANGELOG Page. */
 function bxb_plugin_changelog_page() {
-    $pchangelog_path = BXB_dashboard_DIR . 'Plugin-Changelog.md';
+    $pchangelog_path = BXB_dashboard_DIR . 'modules/Documentation/Plugin-Changelog.md';
 
     echo '<div class="wrap"><h1>Plugin Changelog</h1>';
     

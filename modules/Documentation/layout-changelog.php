@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 
 // Include Parsedown if not already loaded.
 if (!class_exists('Parsedown')) {
-    require_once plugin_dir_path(__FILE__) . 'includes/parsedown.php';
+    require_once plugin_dir_path(__FILE__) . '../../includes/parsedown.php';
 }
 
 /* Add LAYOUT CHANGELOG Page */
@@ -26,7 +26,7 @@ add_action('admin_menu', 'bxb_dashboard_add_layout_changelog_page');
 
 /*  Display LAYOUT CHANGELOG Page. */
 function bxb_layout_changelog_page() {
-    $lchangelog_path = BXB_dashboard_DIR . 'Layout-Changelog.md';
+    $lchangelog_path = BXB_dashboard_DIR . 'modules/Documentation/Layout-Changelog.md';
 
     echo '<div class="wrap"><h1>Layout Changelog</h1>';
     
