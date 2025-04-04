@@ -21,24 +21,26 @@ define('BXB_dashboard_VERSION', '1.0.1');
 define('BXB_dashboard_DIR', plugin_dir_path(__FILE__));
 define('BXB_dashboard_URL', plugin_dir_url(__FILE__));
 
-$files_to_include = array(
-    // Global files
-    'includes/global-functions.php',
-    'includes/global-variables.php',
-    
-    // Modules
-    'modules/Documentation/documentation.php',
-    'modules/Script Manager/snippets-dashboard.php',
-    'modules/Script Manager/snippet-settings.php',
-    'modules/Script Manager/snippet-ajax.php'
-);
+// Include required files
+require_once BXB_dashboard_DIR . 'includes/global-functions.php';
+require_once BXB_dashboard_DIR . 'includes/global-variables.php';
+require_once BXB_dashboard_DIR . 'includes/parsedown.php';
+
+// Include module files
+require_once BXB_dashboard_DIR . 'modules/Documentation/documentation.php';
+require_once BXB_dashboard_DIR . 'modules/Script Manager/script-manager.php';
+require_once BXB_dashboard_DIR . 'modules/Script Manager/snippets-dashboard.php';
+require_once BXB_dashboard_DIR . 'modules/Script Manager/snippet-settings.php';
+require_once BXB_dashboard_DIR . 'modules/Script Manager/snippet-ajax.php';
 
 // Initialize modules
-foreach ($files_to_include as $file) {
-    if (file_exists(BXB_dashboard_DIR . $file)) {
-        require_once BXB_dashboard_DIR . $file;
+add_action('plugins_loaded', function() {
+    // Initialize Script Manager
+    if (class_exists('BxB_Script_Manager')) {
+        global $bxb_script_manager;
+        $bxb_script_manager = new BxB_Script_Manager();
     }
-}
+});
 
 // Initialize Server Setup module and its submodules
 add_action('plugins_loaded', function() {
