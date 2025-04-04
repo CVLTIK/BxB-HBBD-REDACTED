@@ -204,7 +204,7 @@ function bxb_snippets_dashboard_page() {
             });
         });
 
-        // Existing toggle functionality
+        // Toggle snippet functionality
         $('.snippet-toggle-input').on('change', function() {
             var snippet = $(this).data('snippet');
             var enabled = $(this).is(':checked');
@@ -216,12 +216,19 @@ function bxb_snippets_dashboard_page() {
                     action: 'toggle_snippet',
                     snippet: snippet,
                     enabled: enabled,
-                    nonce: '<?php echo wp_create_nonce('toggle_snippet'); ?>'
+                    nonce: '<?php echo wp_create_nonce('bxb_dashboard_nonce'); ?>'
                 },
                 success: function(response) {
                     if (!response.success) {
                         alert('Error toggling snippet');
+                        // Revert the toggle
+                        $(this).prop('checked', !enabled);
                     }
+                },
+                error: function() {
+                    alert('Error toggling snippet');
+                    // Revert the toggle
+                    $(this).prop('checked', !enabled);
                 }
             });
         });
@@ -243,7 +250,7 @@ function bxb_snippets_dashboard_page() {
                 name: $('input[name="snippet_name"]').val(),
                 description: $('textarea[name="snippet_description"]').val(),
                 tags: $('input[name="snippet_tags"]').val().split(',').map(tag => tag.trim()).filter(tag => tag),
-                nonce: '<?php echo wp_create_nonce('add_snippet'); ?>'
+                nonce: '<?php echo wp_create_nonce('bxb_dashboard_nonce'); ?>'
             };
 
             $.ajax({
@@ -256,6 +263,9 @@ function bxb_snippets_dashboard_page() {
                     } else {
                         alert('Error adding snippet: ' + response.data);
                     }
+                },
+                error: function() {
+                    alert('Error adding snippet');
                 }
             });
         });

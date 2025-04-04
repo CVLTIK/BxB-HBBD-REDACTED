@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 
 /* Handle Snippet Toggle AJAX Request */
 function bxb_toggle_snippet() {
-    check_ajax_referer('toggle_snippet', 'nonce');
+    check_ajax_referer('bxb_dashboard_nonce', 'nonce');
     
     if (!current_user_can('manage_options')) {
         wp_send_json_error('Insufficient permissions');
@@ -31,7 +31,7 @@ add_action('wp_ajax_toggle_snippet', 'bxb_toggle_snippet');
 
 /* Handle Add New Snippet AJAX Request */
 function bxb_add_snippet() {
-    check_ajax_referer('add_snippet', 'nonce');
+    check_ajax_referer('bxb_dashboard_nonce', 'nonce');
     
     if (!current_user_can('manage_options')) {
         wp_send_json_error('Insufficient permissions');
@@ -39,6 +39,7 @@ function bxb_add_snippet() {
     
     $name = sanitize_text_field($_POST['name']);
     $description = sanitize_textarea_field($_POST['description']);
+    $tags = array_map('trim', explode(',', sanitize_text_field($_POST['tags'] ?? '')));
     
     if (empty($name) || empty($description)) {
         wp_send_json_error('Name and description are required');
@@ -59,7 +60,12 @@ function bxb_add_snippet() {
         'code' => '',
         'documentation' => '',
         'enabled' => false,
-        'secure' => true
+        'tags' => $tags,
+        'security' => array(
+            'scope' => 'everywhere',
+            'run_once' => false,
+            'min_role' => 'manage_options'
+        )
     );
     
     update_option('bxb_snippets', $snippets);
