@@ -5,6 +5,23 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Enqueue admin scripts
+function bxb_snippets_enqueue_scripts() {
+    wp_enqueue_script(
+        'bxb-snippets-admin',
+        plugins_url('assets/js/script-manager.js', __FILE__),
+        array('jquery'),
+        BXB_dashboard_VERSION,
+        true
+    );
+    
+    wp_localize_script('bxb-snippets-admin', 'bxbSnippets', array(
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('bxb_dashboard_nonce')
+    ));
+}
+add_action('admin_enqueue_scripts', 'bxb_snippets_enqueue_scripts');
+
 /* Display Snippets Dashboard Page */
 function bxb_snippets_dashboard_page() {
     // Get all snippets from the database
@@ -203,7 +220,7 @@ function bxb_snippets_dashboard_page() {
                     action: 'toggle_snippet',
                     snippet: snippet,
                     enabled: enabled,
-                    nonce: '<?php echo wp_create_nonce('bxb_dashboard_nonce'); ?>'
+                    nonce: bxbSnippets.nonce
                 },
                 success: function(response) {
                     if (!response.success) {
@@ -237,7 +254,7 @@ function bxb_snippets_dashboard_page() {
                 name: $('input[name="snippet_name"]').val(),
                 description: $('textarea[name="snippet_description"]').val(),
                 tags: $('input[name="snippet_tags"]').val().split(',').map(tag => tag.trim()).filter(tag => tag),
-                nonce: '<?php echo wp_create_nonce('bxb_dashboard_nonce'); ?>'
+                nonce: bxbSnippets.nonce
             };
 
             $.ajax({
