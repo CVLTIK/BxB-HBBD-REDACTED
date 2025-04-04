@@ -21,6 +21,18 @@ class BxB_Script_Manager {
     public function init() {
         add_action('admin_init', array($this, 'register_settings'));
         add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
+        add_action('admin_menu', array($this, 'register_menu'));
+    }
+
+    public function register_menu() {
+        add_submenu_page(
+            'bxb-dashboard',
+            'Snippets',
+            'Snippets',
+            'manage_options',
+            'bxb-snippets-dashboard',
+            'bxb_snippets_dashboard_page'
+        );
     }
 
     public function register_settings() {
