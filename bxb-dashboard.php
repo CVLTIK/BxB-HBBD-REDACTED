@@ -41,10 +41,18 @@ $files_to_include = array(
             'modules/Script Manager/script-manager.php',
 );
 
+// Initialize modules
 foreach ($files_to_include as $file) {
     if (file_exists(BXB_dashboard_DIR . $file)) {
         require_once BXB_dashboard_DIR . $file;
     }
+}
+
+// Initialize Server Setup module and its submodules
+if (class_exists('BxB_Server_Setup')) {
+    $bxb_server_setup = new BxB_Server_Setup();
+    $bxb_server_setup_docs = new BxB_Server_Setup_Docs();
+    $bxb_server_setup_toggle = new BxB_Server_Setup_Toggle();
 }
   
 /* Plugin activation hook. */
