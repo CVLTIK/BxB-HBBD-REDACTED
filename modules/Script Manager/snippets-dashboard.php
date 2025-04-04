@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Enqueue admin scripts
+// Enqueue admin scripts and styles
 function bxb_snippets_enqueue_scripts($hook) {
     // Only load on our plugin pages
     if (strpos($hook, 'bxb-snippets-dashboard') === false) {
@@ -15,6 +15,15 @@ function bxb_snippets_enqueue_scripts($hook) {
     // Get plugin version
     $version = defined('BXB_dashboard_VERSION') ? BXB_dashboard_VERSION : '1.0.2';
     
+    // Enqueue styles
+    wp_enqueue_style(
+        'bxb-snippets-admin',
+        plugins_url('assets/css/admin.css', __FILE__),
+        array(),
+        $version
+    );
+    
+    // Enqueue scripts
     wp_enqueue_script(
         'bxb-snippets-admin',
         plugins_url('assets/js/admin.js', __FILE__),
@@ -23,6 +32,7 @@ function bxb_snippets_enqueue_scripts($hook) {
         true
     );
     
+    // Localize script
     wp_localize_script('bxb-snippets-admin', 'bxbSnippets', array(
         'ajaxurl' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('bxb_dashboard_nonce')
