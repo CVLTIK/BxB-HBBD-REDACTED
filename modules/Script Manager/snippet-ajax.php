@@ -72,23 +72,48 @@ function bxb_add_snippet() {
     // Add new snippet to existing snippets
     $snippets[$slug] = $new_snippet;
     
+    // Debug information
+    $debug_info = array(
+        'snippet_count' => count($snippets),
+        'new_slug' => $slug,
+        'snippet_size' => strlen(serialize($snippets))
+    );
+    
+    // Check if we can write to the options table
+    global $wpdb;
+    $test_option = 'bxb_test_option_' . time();
+    $test_value = 'test';
+    
+    // Test database write
+    if (!add_option($test_option, $test_value)) {
+        $last_error = $wpdb->last_error;
+        wp_send_json_error('Database write test failed: ' . $last_error);
+    }
+    
+    // Clean up test option
+    delete_option($test_option);
+    
     // Update the option with all snippets
     $update_result = update_option('bxb_snippets', $snippets);
     
     if ($update_result === true) {
         wp_send_json_success(array(
             'message' => 'Snippet added successfully',
-            'snippet' => $new_snippet
+            'snippet' => $new_snippet,
+            'debug' => $debug_info
         ));
     } else {
         // Get the last database error
-        global $wpdb;
         $last_error = $wpdb->last_error;
         
         $error_message = 'Failed to save snippet';
         if (!empty($last_error)) {
             $error_message .= ': ' . $last_error;
         }
+        
+        // Log the error
+        error_log('BxB Snippet Error: ' . $error_message);
+        error_log('BxB Snippet Debug: ' . print_r($debug_info, true));
         
         wp_send_json_error($error_message);
     }

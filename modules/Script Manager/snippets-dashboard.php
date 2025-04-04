@@ -248,11 +248,23 @@ function bxb_snippets_dashboard_page() {
                     if (response.success) {
                         location.reload();
                     } else {
-                        alert('Error adding snippet: ' + (response.data || 'Unknown error'));
+                        var errorMessage = 'Error adding snippet';
+                        if (response.data) {
+                            errorMessage += ': ' + response.data;
+                        }
+                        if (response.debug) {
+                            console.log('Debug info:', response.debug);
+                        }
+                        alert(errorMessage);
                     }
                 },
                 error: function(xhr, status, error) {
-                    alert('Error adding snippet: ' + error);
+                    console.error('AJAX Error:', {
+                        status: status,
+                        error: error,
+                        response: xhr.responseText
+                    });
+                    alert('Error adding snippet: ' + error + '\nCheck browser console for details');
                 }
             });
         });
