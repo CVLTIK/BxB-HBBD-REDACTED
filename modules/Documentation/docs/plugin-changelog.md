@@ -3,7 +3,19 @@
 This document records all notable changes made to the BxB Layout Dashboard plugin, including new features, updates, and bug fixes.
 
 ## [UNRELEASED]
+### Added
 
+### Changed
+
+### Fixed
+
+### Requests
+
+- Define Categories to split snippets and plugins https://wpcode.com/
+
+---
+
+## [1.0.2] – 2025-04-04
 ### Added
 
 * Implemented **Parsedown** to improve the display of Markdown (`.md`) files within the admin dashboard.
@@ -21,11 +33,7 @@ This document records all notable changes made to the BxB Layout Dashboard plugi
 * Resolved an issue where the plugin would fail to activate, leading to a **500 internal server error**.
 * Fixed incorrect formatting of `.md` files when displayed in the admin panel.
 * Linking on the **README** file. 
-* Moudularity of the **Documentation Module** to make it fasier to mantain and add to.
-
-### Requests
-
-- Define Categories to split snippets and plugins https://wpcode.com/
+* Modularity of the **Documentation Module** to make it fasier to mantain and add to.
 
 ---
 
