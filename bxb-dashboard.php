@@ -31,7 +31,9 @@ $files_to_include = array(
             'modules/BxB Dashboard/dashboard.php',
         // Documentation
             'modules/Documentation/documentation.php',
-        // Server Setup
+            'modules/Documentation/includes/content-handler.php',
+            'modules/Documentation/includes/template-parts.php',
+/*         // Server Setup
             'modules/Server Setup/server-setup.php',
             'modules/Server Setup/server-setup-docs.php',
             'modules/Server Setup/server-setup-toggle.php',
@@ -39,7 +41,7 @@ $files_to_include = array(
             'modules/Script Manager/script-manager.php',
             'modules/Script Manager/snippets-dashboard.php',
             'modules/Script Manager/snippet-settings.php',
-            'modules/Script Manager/snippet-ajax.php',
+            'modules/Script Manager/snippet-ajax.php', */
 );
 
 // Initialize modules

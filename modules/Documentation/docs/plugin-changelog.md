@@ -20,6 +20,8 @@ This document records all notable changes made to the BxB Layout Dashboard plugi
 
 * Resolved an issue where the plugin would fail to activate, leading to a **500 internal server error**.
 * Fixed incorrect formatting of `.md` files when displayed in the admin panel.
+* Linking on the **README** file. 
+* Moudularity of the **Documentation Module** to make it fasier to mantain and add to.
 
 ### Requests
 
@@ -62,7 +64,3 @@ This document records all notable changes made to the BxB Layout Dashboard plugi
 * Set up **Kinsta SSH Terminal access**, allowing command-line management of the site.
 * Established **initial Git integration**, providing version control for the project.
 * Configured **core development tools** within VS Code, including support for [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens), improving collaboration and code tracking.
-
----
-
-This changelog provides a structured and detailed overview of the development progress. Let me know if you need any additional refinements!
