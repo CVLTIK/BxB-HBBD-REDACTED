@@ -22,24 +22,15 @@ define('BXB_dashboard_DIR', plugin_dir_path(__FILE__));
 define('BXB_dashboard_URL', plugin_dir_url(__FILE__));
 
 $files_to_include = array(
-    // Include required global files.
-        'includes/enqueue.php',
-        'includes/parsedown.php',
-        'includes/save-global-settings.php',
-    // Include Modules
-        // BxB Dashboard
-            'modules/BxB Dashboard/dashboard.php',
-        // Documentation
-            'modules/Documentation/documentation.php',
-        // Server Setup
-            'modules/Server Setup/server-setup.php',
-            'modules/Server Setup/server-setup-docs.php',
-            'modules/Server Setup/server-setup-toggle.php',
-        // Script Manager
-            'modules/Script Manager/script-manager.php',
-            'modules/Script Manager/snippets-dashboard.php',
-            'modules/Script Manager/snippet-settings.php',
-            'modules/Script Manager/snippet-ajax.php',
+    // Global files
+    'includes/global-functions.php',
+    'includes/global-variables.php',
+    
+    // Modules
+    'modules/Documentation/documentation.php',
+    'modules/Script Manager/snippets-dashboard.php',
+    'modules/Script Manager/snippet-settings.php',
+    'modules/Script Manager/snippet-ajax.php'
 );
 
 // Initialize modules
@@ -78,3 +69,33 @@ function bxb_dashboard_deactivate() {
     // Actions on deactivation
 }
 register_deactivation_hook(__FILE__, 'bxb_dashboard_deactivate');
+
+function bxb_dashboard_add_admin_menu() {
+    add_menu_page(
+        'BxB Dashboard',
+        'BxB Dashboard',
+        'manage_options',
+        'bxb-dashboard',
+        'bxb_dashboard_page',
+        'dashicons-admin-generic',
+        2
+    );
+
+    add_submenu_page(
+        'bxb-dashboard',
+        'Snippets',
+        'Snippets',
+        'manage_options',
+        'bxb-snippets-dashboard',
+        'bxb_snippets_dashboard_page'
+    );
+
+    add_submenu_page(
+        'bxb-dashboard',
+        'Documentation',
+        'Documentation',
+        'manage_options',
+        'bxb-documentation',
+        'bxb_documentation_page'
+    );
+}
