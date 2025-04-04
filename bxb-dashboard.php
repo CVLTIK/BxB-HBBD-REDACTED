@@ -48,7 +48,18 @@ function bxb_dashboard_activate() {
     if (!get_option('bxb_dashboard_settings')) {
         add_option('bxb_dashboard_settings', array());
     }
-    if (!get_option('bxb_snippets')) {
+    
+    // Get current snippets
+    $current_snippets = get_option('bxb_snippets', array());
+    
+    // Remove sample snippet if it exists
+    if (isset($current_snippets['sample-snippet'])) {
+        unset($current_snippets['sample-snippet']);
+        update_option('bxb_snippets', $current_snippets);
+    }
+    
+    // Initialize snippets if empty
+    if (empty($current_snippets)) {
         add_option('bxb_snippets', array());
     }
 }
