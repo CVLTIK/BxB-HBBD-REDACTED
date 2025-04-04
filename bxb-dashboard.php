@@ -30,9 +30,7 @@ $files_to_include = array(
         // BxB Dashboard
             'modules/BxB Dashboard/dashboard.php',
         // Documentation
-            'modules/Documentation/readme.php',
-            'modules/Documentation/plugin-changelog.php',
-            'modules/Documentation/layout-changelog.php',
+            'modules/Documentation/documentation.php',
         // Server Setup
             'modules/Server Setup/server-setup.php',
             'modules/Server Setup/server-setup-docs.php',

@@ -14,6 +14,7 @@ This document records all notable changes made to the BxB Layout Dashboard plugi
 * Refactored the plugin's structure to use a **modular approach**, where multiple separate files handle different pages, instead of managing everything within a single file.
 * Adjusted the necessity of an admin page, making the plugin more streamlined in its navigation and management.
 * Dashboard "Settings" to "Dashboard" to begin propir scaffolding.
+* Change request once to if exists run in the bxb dashboard php.
 
 ### Fixed
 
@@ -22,7 +23,6 @@ This document records all notable changes made to the BxB Layout Dashboard plugi
 
 ### Requests
 
-- Change request once to if exists run in the bxb dashboard php.
 - Define Categories to split snippets and plugins https://wpcode.com/
 
 ---
