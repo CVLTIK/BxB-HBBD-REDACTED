@@ -112,31 +112,3 @@ function bxb_dashboard_page() {
     </div>
     <?php
 }
-
-// Enqueue admin assets
-function bxb_dashboard_enqueue_admin_assets($hook) {
-    if (strpos($hook, 'bxb-dashboard') === false) {
-        return;
-    }
-
-    wp_enqueue_style(
-        'bxb-dashboard-admin',
-        BXB_dashboard_URL . 'modules/Script Manager/assets/css/admin.css',
-        array(),
-        BXB_dashboard_VERSION
-    );
-
-    wp_enqueue_script(
-        'bxb-dashboard-admin',
-        BXB_dashboard_URL . 'modules/Script Manager/assets/js/admin.js',
-        array('jquery'),
-        BXB_dashboard_VERSION,
-        true
-    );
-
-    wp_localize_script('bxb-dashboard-admin', 'bxbDashboard', array(
-        'ajaxurl' => admin_url('admin-ajax.php'),
-        'nonce' => wp_create_nonce('bxb_dashboard_nonce')
-    ));
-}
-add_action('admin_enqueue_scripts', 'bxb_dashboard_enqueue_admin_assets');
