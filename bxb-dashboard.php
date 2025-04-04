@@ -34,7 +34,7 @@ require_once BXB_dashboard_DIR . 'modules/Script Manager/snippet-settings.php';
 require_once BXB_dashboard_DIR . 'modules/Script Manager/snippet-ajax.php';
 
 // Initialize modules
-add_action('plugins_loaded', function() {
+add_action('init', function() {
     // Initialize Script Manager
     if (class_exists('BxB_Script_Manager')) {
         global $bxb_script_manager;
@@ -44,13 +44,19 @@ add_action('plugins_loaded', function() {
 
 /* Plugin activation hook. */
 function bxb_dashboard_activate() {
-    // Actions on activation
+    // Create necessary database tables and options
+    if (!get_option('bxb_dashboard_settings')) {
+        add_option('bxb_dashboard_settings', array());
+    }
+    if (!get_option('bxb_snippets')) {
+        add_option('bxb_snippets', array());
+    }
 }
 register_activation_hook(__FILE__, 'bxb_dashboard_activate');
 
 /** Plugin deactivation hook. */
 function bxb_dashboard_deactivate() {
-    // Actions on deactivation
+    // Clean up if needed
 }
 register_deactivation_hook(__FILE__, 'bxb_dashboard_deactivate');
 
@@ -63,6 +69,25 @@ function bxb_dashboard_add_admin_menu() {
         'bxb_dashboard_page',
         'dashicons-admin-generic',
         2
+    );
+
+    // Add submenu items
+    add_submenu_page(
+        'bxb-dashboard',
+        'Snippets',
+        'Snippets',
+        'manage_options',
+        'bxb-snippets-dashboard',
+        'bxb_snippets_dashboard_page'
+    );
+
+    add_submenu_page(
+        'bxb-dashboard',
+        'Documentation',
+        'Documentation',
+        'manage_options',
+        'bxb-documentation',
+        'bxb_documentation_page'
     );
 }
 add_action('admin_menu', 'bxb_dashboard_add_admin_menu');
@@ -87,3 +112,31 @@ function bxb_dashboard_page() {
     </div>
     <?php
 }
+
+// Enqueue admin assets
+function bxb_dashboard_enqueue_admin_assets($hook) {
+    if (strpos($hook, 'bxb-dashboard') === false) {
+        return;
+    }
+
+    wp_enqueue_style(
+        'bxb-dashboard-admin',
+        BXB_dashboard_URL . 'modules/Script Manager/assets/css/admin.css',
+        array(),
+        BXB_dashboard_VERSION
+    );
+
+    wp_enqueue_script(
+        'bxb-dashboard-admin',
+        BXB_dashboard_URL . 'modules/Script Manager/assets/js/admin.js',
+        array('jquery'),
+        BXB_dashboard_VERSION,
+        true
+    );
+
+    wp_localize_script('bxb-dashboard-admin', 'bxbDashboard', array(
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('bxb_dashboard_nonce')
+    ));
+}
+add_action('admin_enqueue_scripts', 'bxb_dashboard_enqueue_admin_assets');

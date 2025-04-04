@@ -34,11 +34,11 @@ function bxb_snippet_settings_page() {
     $snippet = $snippets[$snippet_slug];
 
     // Handle form submission
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bxb_snippet_nonce']) && wp_verify_nonce($_POST['bxb_snippet_nonce'], 'bxb_snippet_settings')) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bxb_dashboard_nonce']) && wp_verify_nonce($_POST['bxb_dashboard_nonce'], 'bxb_dashboard_nonce')) {
         $snippet['name'] = sanitize_text_field($_POST['snippet_name']);
         $snippet['description'] = sanitize_textarea_field($_POST['snippet_description']);
-        $snippet['code'] = $_POST['snippet_code'];
-        $snippet['documentation'] = $_POST['snippet_documentation'];
+        $snippet['code'] = wp_kses_post($_POST['snippet_code']);
+        $snippet['documentation'] = wp_kses_post($_POST['snippet_documentation']);
         $snippet['tags'] = array_map('trim', explode(',', sanitize_text_field($_POST['snippet_tags'])));
         $snippet['security'] = array(
             'scope' => sanitize_text_field($_POST['snippet_scope']),
@@ -57,7 +57,7 @@ function bxb_snippet_settings_page() {
         <h1>Edit Snippet: <?php echo esc_html($snippet['name']); ?></h1>
         
         <form method="post" action="">
-            <?php wp_nonce_field('bxb_snippet_settings', 'bxb_snippet_nonce'); ?>
+            <?php wp_nonce_field('bxb_dashboard_nonce', 'bxb_dashboard_nonce'); ?>
             
             <div class="nav-tab-wrapper">
                 <a href="#general" class="nav-tab nav-tab-active">General</a>
@@ -95,6 +95,7 @@ function bxb_snippet_settings_page() {
                     <tr>
                         <td colspan="2">
                             <textarea name="snippet_code" rows="20" class="large-text code" style="font-family: monospace;"><?php echo esc_textarea($snippet['code']); ?></textarea>
+                            <p class="description">Enter your PHP code here. Do not include &lt;?php or ?&gt; tags.</p>
                         </td>
                     </tr>
                 </table>
