@@ -5,19 +5,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-/* Add Snippets Dashboard Page */
-function bxb_dashboard_add_snippets_page() {
-    add_submenu_page(
-        'bxb-dashboard',
-        'Snippets Dashboard',
-        'Snippets',
-        'manage_options',
-        'bxb-snippets-dashboard',
-        'bxb_snippets_dashboard_page'
-    );
-}
-add_action('admin_menu', 'bxb_dashboard_add_snippets_page');
-
 /* Display Snippets Dashboard Page */
 function bxb_snippets_dashboard_page() {
     // Get all snippets from the database
