@@ -324,11 +324,5 @@ class BxB_Server_Setup {
     }
 }
 
-// Initialize the Server Setup module
-$bxb_server_setup = new BxB_Server_Setup();
-
-// Initialize the Server Setup documentation
-$bxb_server_setup_docs = new BxB_Server_Setup_Docs();
-
-// Initialize the Server Setup toggle
-$bxb_server_setup_toggle = new BxB_Server_Setup_Toggle(); 
+// Remove the instantiation code that was causing the error
+// The initialization is now handled in bxb-dashboard.php 
