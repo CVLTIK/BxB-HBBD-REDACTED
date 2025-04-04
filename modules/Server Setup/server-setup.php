@@ -12,26 +12,35 @@ if (!defined('ABSPATH')) {
 
 class BxB_Server_Setup {
     private $options;
+    private $toggle_options;
 
     public function __construct() {
         $this->options = get_option('bxb_server_setup', array());
+        $this->toggle_options = get_option('bxb_server_setup_toggle', array('enabled' => true));
         $this->init();
     }
 
     public function init() {
-        add_action('admin_menu', array($this, 'add_admin_menu'));
-        add_action('admin_head', array($this, 'enqueue_styles'));
+        // Only initialize if the module is enabled
+        if ($this->toggle_options['enabled']) {
+            add_action('admin_menu', array($this, 'add_admin_menu'));
+            add_action('admin_head', array($this, 'enqueue_styles'));
+        }
     }
 
     public function add_admin_menu() {
-        add_submenu_page(
-            'bxb-dashboard',
-            __('Server Setup', 'bxb-dashboard'),
-            __('Server Setup', 'bxb-dashboard'),
-            'manage_options',
-            'bxb-server-setup',
-            array($this, 'render_page')
-        );
+        // Check user capabilities based on toggle settings
+        $min_role = $this->toggle_options['min_role'] ?? 'manage_options';
+        if (current_user_can($min_role)) {
+            add_submenu_page(
+                'bxb-dashboard',
+                __('Server Setup', 'bxb-dashboard'),
+                __('Server Setup', 'bxb-dashboard'),
+                $min_role,
+                'bxb-server-setup',
+                array($this, 'render_page')
+            );
+        }
     }
 
     public function enqueue_styles() {

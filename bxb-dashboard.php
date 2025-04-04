@@ -35,6 +35,8 @@ $files_to_include = array(
             'modules/Documentation/layout-changelog.php',
         // Server Setup
             'modules/Server Setup/server-setup.php',
+            'modules/Server Setup/server-setup-docs.php',
+            'modules/Server Setup/server-setup-toggle.php',
         // Script Manager
             'modules/Script Manager/script-manager.php',
 );
