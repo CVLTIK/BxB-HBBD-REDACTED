@@ -248,11 +248,11 @@ function bxb_snippets_dashboard_page() {
                     if (response.success) {
                         location.reload();
                     } else {
-                        alert('Error adding snippet: ' + response.data);
+                        alert('Error adding snippet: ' + (response.data || 'Unknown error'));
                     }
                 },
-                error: function() {
-                    alert('Error adding snippet');
+                error: function(xhr, status, error) {
+                    alert('Error adding snippet: ' + error);
                 }
             });
         });
