@@ -58,6 +58,7 @@ jQuery(document).ready(function($) {
             name: $('input[name="snippet_name"]').val(),
             description: $('textarea[name="snippet_description"]').val(),
             tags: $('input[name="snippet_tags"]').val().split(',').map(tag => tag.trim()).filter(tag => tag),
+            code: $('textarea[name="snippet_code"]').val(),
             nonce: bxbSnippets.nonce
         };
 
@@ -83,9 +84,23 @@ jQuery(document).ready(function($) {
                 console.error('AJAX Error:', {
                     status: status,
                     error: error,
-                    response: xhr.responseText
+                    response: xhr.responseText,
+                    formData: formData
                 });
-                alert('Error adding snippet: ' + error + '\nCheck browser console for details');
+                
+                var errorMessage = 'Error adding snippet: ';
+                try {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.data) {
+                        errorMessage += response.data;
+                    } else {
+                        errorMessage += error;
+                    }
+                } catch (e) {
+                    errorMessage += error;
+                }
+                
+                alert(errorMessage + '\nCheck browser console for details');
             }
         });
     });

@@ -40,6 +40,7 @@ function bxb_add_snippet() {
     $name = sanitize_text_field($_POST['name']);
     $description = sanitize_textarea_field($_POST['description']);
     $tags = array_map('trim', explode(',', sanitize_text_field($_POST['tags'] ?? '')));
+    $code = isset($_POST['code']) ? wp_unslash($_POST['code']) : '';
     
     if (empty($name) || empty($description)) {
         wp_send_json_error('Name and description are required');
@@ -54,11 +55,23 @@ function bxb_add_snippet() {
         wp_send_json_error('A snippet with this name already exists');
     }
     
+    // Validate code
+    if (!empty($code)) {
+        // Remove plugin header comment if present
+        $code = preg_replace('/\/\*\*?\s*Plugin Name:.*?\*\//s', '', $code);
+        
+        // Check for syntax errors
+        $syntax_check = @eval('return true;' . $code);
+        if ($syntax_check === false) {
+            wp_send_json_error('Invalid PHP code syntax');
+        }
+    }
+    
     // Create new snippet while preserving existing ones
     $new_snippet = array(
         'name' => $name,
         'description' => $description,
-        'code' => '',
+        'code' => $code,
         'documentation' => '',
         'enabled' => false,
         'tags' => $tags,
@@ -79,53 +92,25 @@ function bxb_add_snippet() {
         'snippet_size' => strlen(serialize($snippets))
     );
     
-    // Check if we can write to the options table
-    global $wpdb;
-    
-    // First check if the option exists
-    $option_exists = $wpdb->get_var($wpdb->prepare(
-        "SELECT option_id FROM {$wpdb->options} WHERE option_name = %s",
-        'bxb_snippets'
-    ));
-    
-    if ($option_exists) {
-        // Try to update the existing option
-        $result = $wpdb->update(
-            $wpdb->options,
-            array('option_value' => maybe_serialize($snippets)),
-            array('option_name' => 'bxb_snippets'),
-            array('%s'),
-            array('%s')
-        );
-        
-        if ($result === false) {
-            $last_error = $wpdb->last_error;
-            error_log('BxB Snippet Update Error: ' . $last_error);
-            wp_send_json_error('Failed to update snippets: ' . $last_error);
-        }
+    // Update the option
+    if (update_option('bxb_snippets', $snippets)) {
+        wp_send_json_success(array(
+            'message' => 'Snippet added successfully',
+            'snippet' => $new_snippet,
+            'debug' => $debug_info
+        ));
     } else {
-        // Try to add the new option
-        $result = $wpdb->insert(
-            $wpdb->options,
-            array(
-                'option_name' => 'bxb_snippets',
-                'option_value' => maybe_serialize($snippets),
-                'autoload' => 'no'
-            ),
-            array('%s', '%s', '%s')
-        );
-        
-        if ($result === false) {
-            $last_error = $wpdb->last_error;
-            error_log('BxB Snippet Insert Error: ' . $last_error);
-            wp_send_json_error('Failed to create snippets: ' . $last_error);
-        }
+        global $wpdb;
+        $last_error = $wpdb->last_error;
+        error_log('BxB Snippet Update Error: ' . $last_error);
+        wp_send_json_error(array(
+            'message' => 'Failed to save snippet',
+            'debug' => array(
+                'last_error' => $last_error,
+                'snippet_count' => count($snippets),
+                'snippet_size' => strlen(serialize($snippets))
+            )
+        ));
     }
-    
-    wp_send_json_success(array(
-        'message' => 'Snippet added successfully',
-        'snippet' => $new_snippet,
-        'debug' => $debug_info
-    ));
 }
 add_action('wp_ajax_add_snippet', 'bxb_add_snippet'); 

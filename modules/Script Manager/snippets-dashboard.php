@@ -137,6 +137,13 @@ function bxb_snippets_dashboard_page() {
                                 <p class="description">Separate tags with commas</p>
                             </td>
                         </tr>
+                        <tr>
+                            <th scope="row">Code</th>
+                            <td>
+                                <textarea name="snippet_code" rows="10" class="large-text code" style="font-family: monospace;"></textarea>
+                                <p class="description">Enter your PHP code here. Do not include &lt;?php or ?&gt; tags.</p>
+                            </td>
+                        </tr>
                     </table>
                     <p class="submit">
                         <input type="submit" class="button button-primary" value="Add Snippet">
