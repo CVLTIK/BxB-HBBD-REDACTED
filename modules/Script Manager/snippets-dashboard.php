@@ -443,10 +443,10 @@ $server_manager->generate_csv_file($passwords[\'updated_users\'], \'CLIENT\', \'
         )
     );
 
-    // Add the server setup snippet if it doesn\'t exist
-    if (!isset($snippets[\'server-setup\'])) {
-        $snippets[\'server-setup\'] = $server_setup_snippet[\'server-setup\'];
-        update_option(\'bxb_snippets\', $snippets);
+    // Add the server setup snippet if it doesn't exist
+    if (!isset($snippets['server-setup'])) {
+        $snippets['server-setup'] = $server_setup_snippet['server-setup'];
+        update_option('bxb_snippets', $snippets);
     }
     
     ?>
@@ -463,11 +463,11 @@ $server_manager->generate_csv_file($passwords[\'updated_users\'], \'CLIENT\', \'
 
             <?php foreach ($snippets as $slug => $snippet): ?>
                 <div class="snippet-card" style="background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 20px;">
-                    <h3><?php echo esc_html($snippet[\'name\']); ?></h3>
-                    <p><?php echo esc_html($snippet[\'description\']); ?></p>
+                    <h3><?php echo esc_html($snippet['name']); ?></h3>
+                    <p><?php echo esc_html($snippet['description']); ?></p>
                     
                     <div class="snippet-actions" style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-                        <a href="<?php echo admin_url(\'admin.php?page=bxb-snippet-settings&snippet=\' . $slug); ?>" 
+                        <a href="<?php echo admin_url('admin.php?page=bxb-snippet-settings&snippet=' . $slug); ?>" 
                            class="button button-secondary">
                             Settings
                         </a>
@@ -477,7 +477,7 @@ $server_manager->generate_csv_file($passwords[\'updated_users\'], \'CLIENT\', \'
                                 <input type="checkbox" 
                                        class="snippet-toggle-input" 
                                        data-snippet="<?php echo esc_attr($slug); ?>"
-                                       <?php checked($snippet[\'enabled\']); ?>>
+                                       <?php checked($snippet['enabled']); ?>>
                                 <span class="slider round"></span>
                             </label>
                         </div>
@@ -575,55 +575,55 @@ $server_manager->generate_csv_file($passwords[\'updated_users\'], \'CLIENT\', \'
     <script>
     jQuery(document).ready(function($) {
         // Existing toggle functionality
-        $(\'.snippet-toggle-input\').on(\'change\', function() {
-            var snippet = $(this).data(\'snippet\');
-            var enabled = $(this).is(\':checked\');
+        $('.snippet-toggle-input').on('change', function() {
+            var snippet = $(this).data('snippet');
+            var enabled = $(this).is(':checked');
             
             $.ajax({
                 url: ajaxurl,
-                type: \'POST\',
+                type: 'POST',
                 data: {
-                    action: \'toggle_snippet\',
+                    action: 'toggle_snippet',
                     snippet: snippet,
                     enabled: enabled,
-                    nonce: \'<?php echo wp_create_nonce(\'toggle_snippet\'); ?>\'
+                    nonce: '<?php echo wp_create_nonce('toggle_snippet'); ?>'
                 },
                 success: function(response) {
                     if (!response.success) {
-                        alert(\'Error toggling snippet\');
+                        alert('Error toggling snippet');
                     }
                 }
             });
         });
 
         // Add New Snippet functionality
-        $(\'.snippet-card.add-new\').on(\'click\', function() {
-            $(\'#add-snippet-modal\').show();
+        $('.snippet-card.add-new').on('click', function() {
+            $('#add-snippet-modal').show();
         });
 
-        $(\'#cancel-add-snippet\').on(\'click\', function() {
-            $(\'#add-snippet-modal\').hide();
+        $('#cancel-add-snippet').on('click', function() {
+            $('#add-snippet-modal').hide();
         });
 
-        $(\'#add-snippet-form\').on(\'submit\', function(e) {
+        $('#add-snippet-form').on('submit', function(e) {
             e.preventDefault();
             
             var formData = {
-                action: \'add_snippet\',
-                name: $(\'input[name="snippet_name"]\').val(),
-                description: $(\'textarea[name="snippet_description"]\').val(),
-                nonce: \'<?php echo wp_create_nonce(\'add_snippet\'); ?>\'
+                action: 'add_snippet',
+                name: $('input[name="snippet_name"]').val(),
+                description: $('textarea[name="snippet_description"]').val(),
+                nonce: '<?php echo wp_create_nonce('add_snippet'); ?>'
             };
 
             $.ajax({
                 url: ajaxurl,
-                type: \'POST\',
+                type: 'POST',
                 data: formData,
                 success: function(response) {
                     if (response.success) {
                         location.reload();
                     } else {
-                        alert(\'Error adding snippet: \' + response.data);
+                        alert('Error adding snippet: ' + response.data);
                     }
                 }
             });
