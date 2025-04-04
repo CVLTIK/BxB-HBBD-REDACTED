@@ -14,6 +14,7 @@ A WordPress dashboard plugin designed for **streamlined site setup and theme man
 
 ---
 
+<a name="installation"></a>
 ## Installation
 
 ### From GitHub
@@ -27,6 +28,7 @@ A WordPress dashboard plugin designed for **streamlined site setup and theme man
 
 ---
 
+<a name="development--access"></a>
 ## Development & Access
 
 The development site is hosted on **Kinsta**.
@@ -36,6 +38,7 @@ To access the Kinsta Tunnel, visit:
 
 ---
 
+<a name="usage"></a>
 ## Usage
 
 ### Configure Settings
@@ -50,6 +53,7 @@ To access the Kinsta Tunnel, visit:
 
 ---
 
+<a name="updating-the-plugin"></a>
 ## Updating the Plugin
 
 To update the plugin from the main branch, run:
@@ -64,6 +68,7 @@ Use **GitLens** to manage code updates and distribution.
 
 ---
 
+<a name="features"></a>
 ## Features
 
 * **Header & Footer Management** – Easily configure headers and footers.
@@ -77,12 +82,14 @@ Use **GitLens** to manage code updates and distribution.
 
 ---
 
+<a name="reporting-issues"></a>
 ## Reporting Issues
 
-If you encounter a bug or have a feature request, please **open an issue** on [GitHub](https://github.com/CVLTIK/BxB-Layout-Dashboard/issues).
+If you encounter a bug or have a feature request, please **open an issue** on [GitHub](https://github.com/CVLTIK/bxb-layout-dashboard-alpha/issues).
 
 ---
 
+<a name="license"></a>
 ## License
 
 This plugin is licensed under the **MPL-2.0**.
