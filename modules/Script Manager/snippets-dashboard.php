@@ -23,30 +23,127 @@ function bxb_snippets_dashboard_page() {
     // Get all snippets from the database
     $snippets = get_option('bxb_snippets', array());
     
-    // Add some sample snippets if none exist
-    if (empty($snippets)) {
-        $snippets = array(
-            'server-setup' => array(
-                'name' => 'Server Setup Manager',
-                'description' => 'A comprehensive tool for managing server setup tasks including user management, password generation, and client code updates.',
-                'code' => '<?php
+    // Define the server setup snippet
+    $server_setup_snippet = array(
+        'server-setup' => array(
+            'name' => 'Server Setup Manager',
+            'description' => 'A comprehensive tool for managing server setup tasks including user management, password generation, client code updates, and security settings.',
+            'code' => '<?php
 /**
  * Server Setup Manager
  * 
- * This snippet provides functionality for managing server setup tasks including:
- * - User management
- * - Password generation
- * - Client code updates
+ * This snippet provides comprehensive server setup functionality including:
+ * - User management and security
+ * - Password generation and updates
+ * - Client code management
  * - CSV export of credentials
+ * - Role-based access control
  */
 
 class BxB_Server_Manager {
     private $options;
     private $toggle_options;
+    private $min_role;
 
     public function __construct() {
         $this->options = get_option(\'bxb_server_setup\', array());
-        $this->toggle_options = get_option(\'bxb_server_setup_toggle\', array(\'enabled\' => true));
+        $this->toggle_options = get_option(\'bxb_server_setup_toggle\', array(
+            \'enabled\' => true,
+            \'min_role\' => \'manage_options\'
+        ));
+        $this->min_role = $this->toggle_options[\'min_role\'] ?? \'manage_options\';
+    }
+
+    /**
+     * Initialize the manager
+     */
+    public function init() {
+        if ($this->toggle_options[\'enabled\']) {
+            add_action(\'admin_menu\', array($this, \'add_admin_menu\'));
+            add_action(\'admin_head\', array($this, \'enqueue_styles\'));
+        }
+    }
+
+    /**
+     * Add admin menu items
+     */
+    public function add_admin_menu() {
+        if (current_user_can($this->min_role)) {
+            add_submenu_page(
+                \'bxb-dashboard\',
+                __(\'Server Setup\', \'bxb-dashboard\'),
+                __(\'Server Setup\', \'bxb-dashboard\'),
+                $this->min_role,
+                \'bxb-server-setup\',
+                array($this, \'render_page\')
+            );
+        }
+    }
+
+    /**
+     * Enqueue admin styles
+     */
+    public function enqueue_styles() {
+        ?>
+        <style>
+            .bxb-server-setup-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                margin-top: 20px;
+            }
+            .bxb-server-setup-form, .bxb-server-setup-results {
+                background: #fff;
+                border: 1px solid #ccd0d4;
+                padding: 20px;
+                box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+                width: 100%;
+            }
+            .bxb-server-setup-form h2, .bxb-server-setup-results h2 {
+                font-size: 1.5em;
+                margin-bottom: 10px;
+            }
+            .bxb-server-setup-form table, .bxb-server-setup-results table {
+                width: 100%;
+            }
+            .bxb-server-setup-form table th, .bxb-server-setup-results table th {
+                width: 25%;
+                text-align: left;
+                padding-right: 10px;
+            }
+            .bxb-server-setup-form table td, .bxb-server-setup-results table td {
+                width: 75%;
+            }
+            .bxb-server-setup-form input[type="text"], .bxb-server-setup-form input[type="email"] {
+                width: 100%;
+                padding: 5px;
+                font-size: 1em;
+            }
+            .bxb-server-setup-form input[type="submit"] {
+                background: #0073aa;
+                border: none;
+                color: #fff;
+                padding: 10px 20px;
+                font-size: 1em;
+                cursor: pointer;
+            }
+            .bxb-server-setup-form input[type="submit"]:hover {
+                background: #005a87;
+            }
+            .bxb-server-setup-results ul {
+                list-style-type: none;
+                padding: 0;
+            }
+            .bxb-server-setup-results ul li {
+                margin-bottom: 5px;
+            }
+            @media (max-width: 700px) {
+                .bxb-server-setup-form, .bxb-server-setup-results {
+                    width: 100%;
+                }
+            }
+        </style>
+        <?php
     }
 
     /**
@@ -185,32 +282,119 @@ class BxB_Server_Manager {
         fclose($output);
         exit;
     }
+
+    /**
+     * Get current client codes
+     */
+    public function get_current_client_codes() {
+        global $wpdb;
+        $client_codes = $wpdb->get_results("SELECT DISTINCT SUBSTRING_INDEX(user_login, \'-bxb-\', 1) AS client_code FROM {$wpdb->users} WHERE user_login LIKE \'%-bxb-%\'");
+        return $client_codes;
+    }
+
+    /**
+     * Render the admin page
+     */
+    public function render_page() {
+        $current_client_codes = $this->get_current_client_codes();
+        $results = null;
+        $url = \'https://\' . $_SERVER[\'HTTP_HOST\'] . \'/bxb\';
+
+        if ($_SERVER[\'REQUEST_METHOD\'] == \'POST\' && isset($_POST[\'bxb_nonce\']) && wp_verify_nonce($_POST[\'bxb_nonce\'], \'bxb_server_setup\')) {
+            if (!empty($_POST[\'client_code\']) && !empty($_POST[\'company_name\']) && isset($_POST[\'update_client_code_passwords\'])) {
+                $client_code = sanitize_text_field($_POST[\'client_code\']);
+                $company_name = sanitize_text_field($_POST[\'company_name\']);
+
+                $result_usernames = $this->update_usernames($client_code, $company_name);
+                $result_passwords = $this->update_passwords();
+                $results = [
+                    \'usernames\' => $result_usernames,
+                    \'passwords\' => $result_passwords
+                ];
+
+                $this->generate_csv_file($result_passwords[\'updated_users\'], $client_code, $company_name);
+            }
+        }
+        ?>
+        <div class="wrap">
+            <h1><?php _e(\'Server Setup\', \'bxb-dashboard\'); ?></h1>
+            
+            <div class="bxb-server-setup-container">
+                <div class="bxb-server-setup-form">
+                    <h2><?php _e(\'Update Client Code and Passwords\', \'bxb-dashboard\'); ?></h2>
+                    <form method="post" action="">
+                        <?php wp_nonce_field(\'bxb_server_setup\', \'bxb_nonce\'); ?>
+                        <table class="form-table">
+                            <tr>
+                                <th scope="row"><?php _e(\'Client Code\', \'bxb-dashboard\'); ?></th>
+                                <td>
+                                    <input type="text" name="client_code" class="regular-text" required>
+                                    <p class="description"><?php _e(\'Enter the new client code (e.g., ABC)\', \'bxb-dashboard\'); ?></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><?php _e(\'Company Name\', \'bxb-dashboard\'); ?></th>
+                                <td>
+                                    <input type="text" name="company_name" class="regular-text" required>
+                                    <p class="description"><?php _e(\'Enter the company name\', \'bxb-dashboard\'); ?></p>
+                                </td>
+                            </tr>
+                        </table>
+                        <p class="submit">
+                            <input type="submit" name="update_client_code_passwords" class="button button-primary" value="<?php _e(\'Update Client Code and Passwords\', \'bxb-dashboard\'); ?>">
+                        </p>
+                    </form>
+                </div>
+
+                <?php if ($results): ?>
+                <div class="bxb-server-setup-results">
+                    <h2><?php _e(\'Results\', \'bxb-dashboard\'); ?></h2>
+                    <ul>
+                        <li><?php printf(__(\'Updated %d usernames\', \'bxb-dashboard\'), $results[\'usernames\'][\'updated_count\']); ?></li>
+                        <li><?php printf(__(\'Generated %d new passwords\', \'bxb-dashboard\'), $results[\'passwords\'][\'updated_count\']); ?></li>
+                        <?php if ($results[\'usernames\'][\'error_count\'] > 0): ?>
+                            <li><?php printf(__(\'%d errors occurred\', \'bxb-dashboard\'), $results[\'usernames\'][\'error_count\']); ?></li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php
+    }
 }
 
 // Usage example:
 // $server_manager = new BxB_Server_Manager();
+// $server_manager->init();
+// 
+// // Update usernames and passwords
 // $result = $server_manager->update_usernames(\'CLIENT\', \'Company Name\');
 // $passwords = $server_manager->update_passwords();
 // $server_manager->generate_csv_file($passwords[\'updated_users\'], \'CLIENT\', \'Company Name\');',
-                'documentation' => '# Server Setup Manager Documentation
+            'documentation' => '# Server Setup Manager Documentation
 
 ## Overview
 The Server Setup Manager is a comprehensive tool for managing server setup tasks including user management, password generation, and client code updates.
 
 ## Features
-- Update usernames with new client codes
-- Generate secure random passwords
-- Update user display names and nicknames
-- Export credentials to CSV
-- Categorize users by vault type
+- User management and security
+- Password generation and updates
+- Client code management
+- CSV export of credentials
+- Role-based access control
+- Automatic user categorization
+- Secure password generation
+- Error handling and reporting
 
 ## Usage
 1. Initialize the manager:
 ```php
 $server_manager = new BxB_Server_Manager();
+$server_manager->init();
 ```
 
-2. Update usernames:
+2. Update usernames and company names:
 ```php
 $result = $server_manager->update_usernames(\'CLIENT\', \'Company Name\');
 ```
@@ -225,21 +409,44 @@ $passwords = $server_manager->update_passwords();
 $server_manager->generate_csv_file($passwords[\'updated_users\'], \'CLIENT\', \'Company Name\');
 ```
 
-## Security Notes
-- All passwords are generated using cryptographically secure methods
-- The CSV file contains sensitive information and should be handled securely
-- Only administrators should have access to this functionality
+## Security Features
+- Role-based access control
+- Secure password generation
+- Input sanitization
+- Nonce verification
+- Error handling
+- Secure CSV export
+
+## User Categories
+- Website Admin
+- Website Blogs
+- Website Editor
+- Website PPC Editor
+- General Vault
 
 ## Troubleshooting
-- Ensure proper database permissions
-- Verify user capabilities
-- Check for proper file permissions when generating CSV
-- Monitor error counts in returned results',
-                'enabled' => false,
-                'secure' => true
-            )
-        );
-        update_option('bxb_snippets', $snippets);
+- Check user capabilities
+- Verify database permissions
+- Monitor error counts
+- Check CSV file permissions
+- Ensure proper role settings
+
+## Best Practices
+1. Always verify user capabilities before operations
+2. Keep backups before making changes
+3. Monitor error counts in results
+4. Handle CSV files securely
+5. Use strong passwords
+6. Regular security audits',
+            'enabled' => false,
+            'secure' => true
+        )
+    );
+
+    // Add the server setup snippet if it doesn\'t exist
+    if (!isset($snippets[\'server-setup\'])) {
+        $snippets[\'server-setup\'] = $server_setup_snippet[\'server-setup\'];
+        update_option(\'bxb_snippets\', $snippets);
     }
     
     ?>
@@ -256,11 +463,11 @@ $server_manager->generate_csv_file($passwords[\'updated_users\'], \'CLIENT\', \'
 
             <?php foreach ($snippets as $slug => $snippet): ?>
                 <div class="snippet-card" style="background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 20px;">
-                    <h3><?php echo esc_html($snippet['name']); ?></h3>
-                    <p><?php echo esc_html($snippet['description']); ?></p>
+                    <h3><?php echo esc_html($snippet[\'name\']); ?></h3>
+                    <p><?php echo esc_html($snippet[\'description\']); ?></p>
                     
                     <div class="snippet-actions" style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-                        <a href="<?php echo admin_url('admin.php?page=bxb-snippet-settings&snippet=' . $slug); ?>" 
+                        <a href="<?php echo admin_url(\'admin.php?page=bxb-snippet-settings&snippet=\' . $slug); ?>" 
                            class="button button-secondary">
                             Settings
                         </a>
@@ -270,7 +477,7 @@ $server_manager->generate_csv_file($passwords[\'updated_users\'], \'CLIENT\', \'
                                 <input type="checkbox" 
                                        class="snippet-toggle-input" 
                                        data-snippet="<?php echo esc_attr($slug); ?>"
-                                       <?php checked($snippet['enabled']); ?>>
+                                       <?php checked($snippet[\'enabled\']); ?>>
                                 <span class="slider round"></span>
                             </label>
                         </div>
@@ -368,55 +575,55 @@ $server_manager->generate_csv_file($passwords[\'updated_users\'], \'CLIENT\', \'
     <script>
     jQuery(document).ready(function($) {
         // Existing toggle functionality
-        $('.snippet-toggle-input').on('change', function() {
-            var snippet = $(this).data('snippet');
-            var enabled = $(this).is(':checked');
+        $(\'.snippet-toggle-input\').on(\'change\', function() {
+            var snippet = $(this).data(\'snippet\');
+            var enabled = $(this).is(\':checked\');
             
             $.ajax({
                 url: ajaxurl,
-                type: 'POST',
+                type: \'POST\',
                 data: {
-                    action: 'toggle_snippet',
+                    action: \'toggle_snippet\',
                     snippet: snippet,
                     enabled: enabled,
-                    nonce: '<?php echo wp_create_nonce('toggle_snippet'); ?>'
+                    nonce: \'<?php echo wp_create_nonce(\'toggle_snippet\'); ?>\'
                 },
                 success: function(response) {
                     if (!response.success) {
-                        alert('Error toggling snippet');
+                        alert(\'Error toggling snippet\');
                     }
                 }
             });
         });
 
         // Add New Snippet functionality
-        $('.snippet-card.add-new').on('click', function() {
-            $('#add-snippet-modal').show();
+        $(\'.snippet-card.add-new\').on(\'click\', function() {
+            $(\'#add-snippet-modal\').show();
         });
 
-        $('#cancel-add-snippet').on('click', function() {
-            $('#add-snippet-modal').hide();
+        $(\'#cancel-add-snippet\').on(\'click\', function() {
+            $(\'#add-snippet-modal\').hide();
         });
 
-        $('#add-snippet-form').on('submit', function(e) {
+        $(\'#add-snippet-form\').on(\'submit\', function(e) {
             e.preventDefault();
             
             var formData = {
-                action: 'add_snippet',
-                name: $('input[name="snippet_name"]').val(),
-                description: $('textarea[name="snippet_description"]').val(),
-                nonce: '<?php echo wp_create_nonce('add_snippet'); ?>'
+                action: \'add_snippet\',
+                name: $(\'input[name="snippet_name"]\').val(),
+                description: $(\'textarea[name="snippet_description"]\').val(),
+                nonce: \'<?php echo wp_create_nonce(\'add_snippet\'); ?>\'
             };
 
             $.ajax({
                 url: ajaxurl,
-                type: 'POST',
+                type: \'POST\',
                 data: formData,
                 success: function(response) {
                     if (response.success) {
                         location.reload();
                     } else {
-                        alert('Error adding snippet: ' + response.data);
+                        alert(\'Error adding snippet: \' + response.data);
                     }
                 }
             });
