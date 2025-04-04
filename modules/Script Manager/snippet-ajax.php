@@ -45,6 +45,7 @@ function bxb_add_snippet() {
         wp_send_json_error('Name and description are required');
     }
     
+    // Get existing snippets
     $snippets = get_option('bxb_snippets', array());
     $slug = sanitize_title($name);
     
@@ -53,8 +54,8 @@ function bxb_add_snippet() {
         wp_send_json_error('A snippet with this name already exists');
     }
     
-    // Add new snippet
-    $snippets[$slug] = array(
+    // Create new snippet while preserving existing ones
+    $new_snippet = array(
         'name' => $name,
         'description' => $description,
         'code' => '',
@@ -68,7 +69,17 @@ function bxb_add_snippet() {
         )
     );
     
-    update_option('bxb_snippets', $snippets);
-    wp_send_json_success();
+    // Add new snippet to existing snippets
+    $snippets[$slug] = $new_snippet;
+    
+    // Update the option with all snippets
+    if (update_option('bxb_snippets', $snippets)) {
+        wp_send_json_success(array(
+            'message' => 'Snippet added successfully',
+            'snippet' => $new_snippet
+        ));
+    } else {
+        wp_send_json_error('Failed to save snippet');
+    }
 }
 add_action('wp_ajax_add_snippet', 'bxb_add_snippet'); 
