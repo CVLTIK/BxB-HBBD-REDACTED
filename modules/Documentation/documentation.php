@@ -10,19 +10,6 @@ if (!class_exists('Parsedown')) {
     require_once plugin_dir_path(__FILE__) . '../../includes/parsedown.php';
 }
 
-/* Add Documentation Page */
-function bxb_dashboard_add_documentation_page() {
-    add_submenu_page(
-        'bxb-dashboard', // Parent menu slug
-        'Documentation', // Page title
-        'Documentation', // Menu title
-        'manage_options', // Capability
-        'bxb-documentation', // Menu slug
-        'bxb_documentation_page' // Callback function
-    );
-}
-add_action('admin_menu', 'bxb_dashboard_add_documentation_page');
-
 /* Display Documentation Page */
 function bxb_documentation_page() {
     // Get the content of each markdown file
