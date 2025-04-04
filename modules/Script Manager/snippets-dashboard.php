@@ -5,40 +5,18 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Enqueue admin scripts and styles
-function bxb_snippets_enqueue_scripts($hook) {
-    // Only load on our plugin pages
-    if (strpos($hook, 'bxb-snippets-dashboard') === false) {
-        return;
-    }
-    
-    // Get plugin version
-    $version = defined('BXB_dashboard_VERSION') ? BXB_dashboard_VERSION : '1.0.2';
-    
-    // Enqueue styles
-    wp_enqueue_style(
-        'bxb-snippets-admin',
-        plugins_url('assets/css/admin.css', __FILE__),
-        array(),
-        $version
+/* Add Snippets Dashboard Page */
+function bxb_dashboard_add_snippets_page() {
+    add_submenu_page(
+        'bxb-dashboard',
+        'Snippets Dashboard',
+        'Snippets',
+        'manage_options',
+        'bxb-snippets-dashboard',
+        'bxb_snippets_dashboard_page'
     );
-    
-    // Enqueue scripts
-    wp_enqueue_script(
-        'bxb-snippets-admin',
-        plugins_url('assets/js/admin.js', __FILE__),
-        array('jquery'),
-        $version,
-        true
-    );
-    
-    // Localize script
-    wp_localize_script('bxb-snippets-admin', 'bxbSnippets', array(
-        'ajaxurl' => admin_url('admin-ajax.php'),
-        'nonce' => wp_create_nonce('bxb_dashboard_nonce')
-    ));
 }
-add_action('admin_enqueue_scripts', 'bxb_snippets_enqueue_scripts');
+add_action('admin_menu', 'bxb_dashboard_add_snippets_page');
 
 /* Display Snippets Dashboard Page */
 function bxb_snippets_dashboard_page() {
@@ -475,16 +453,6 @@ $server_manager->generate_csv_file($passwords[\'updated_users\'], \'CLIENT\', \'
     <div class="wrap">
         <h1>Snippets Dashboard</h1>
         
-        <!-- Tag Filter -->
-        <div class="snippet-filters" style="margin-bottom: 20px;">
-            <select id="tag-filter" style="min-width: 200px; padding: 5px;">
-                <option value="">All Tags</option>
-                <?php foreach ($all_tags as $tag): ?>
-                    <option value="<?php echo esc_attr($tag); ?>"><?php echo esc_html($tag); ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        
         <div class="snippets-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
             <!-- Add New Snippet Card -->
             <div class="snippet-card add-new" style="background: #fff; border: 2px dashed #ddd; border-radius: 4px; padding: 20px; text-align: center; cursor: pointer;">
@@ -499,9 +467,9 @@ $server_manager->generate_csv_file($passwords[\'updated_users\'], \'CLIENT\', \'
                     <p><?php echo esc_html($snippet['description']); ?></p>
                     
                     <div class="snippet-actions" style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-                        <a href="<?php echo admin_url(\'admin.php?page=bxb-snippet-settings&snippet=\' . $slug); ?>" 
+                        <a href="<?php echo admin_url('admin.php?page=bxb-snippet-settings&snippet=' . $slug); ?>" 
                            class="button button-secondary">
-                            Edit
+                            Settings
                         </a>
                         
                         <div class="snippet-toggle">
@@ -509,7 +477,7 @@ $server_manager->generate_csv_file($passwords[\'updated_users\'], \'CLIENT\', \'
                                 <input type="checkbox" 
                                        class="snippet-toggle-input" 
                                        data-snippet="<?php echo esc_attr($slug); ?>"
-                                       <?php checked($snippet[\'enabled\']); ?>>
+                                       <?php checked($snippet['enabled']); ?>>
                                 <span class="slider round"></span>
                             </label>
                         </div>
@@ -534,20 +502,6 @@ $server_manager->generate_csv_file($passwords[\'updated_users\'], \'CLIENT\', \'
                             <th scope="row">Description</th>
                             <td>
                                 <textarea name="snippet_description" rows="3" class="large-text" required></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Tags</th>
-                            <td>
-                                <input type="text" name="snippet_tags" class="regular-text" placeholder="Comma-separated tags">
-                                <p class="description">Separate tags with commas</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Code</th>
-                            <td>
-                                <textarea name="snippet_code" rows="10" class="large-text code" style="font-family: monospace;"></textarea>
-                                <p class="description">Enter your PHP code here. Do not include &lt;?php or ?&gt; tags.</p>
                             </td>
                         </tr>
                     </table>
@@ -615,13 +569,6 @@ $server_manager->generate_csv_file($passwords[\'updated_users\'], \'CLIENT\', \'
     .snippet-card.add-new:hover {
         border-color: #0073aa;
         background: #f8f9fa;
-    }
-
-    .snippet-card {
-        transition: all 0.3s ease;
-    }
-    .snippet-card.hidden {
-        display: none;
     }
     </style>
 
