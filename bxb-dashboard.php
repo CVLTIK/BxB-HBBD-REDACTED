@@ -36,6 +36,14 @@ $files_to_include = array(
             'modules/Server Setup/server-setup-docs.php',
             'modules/Server Setup/server-setup-toggle.php',
 );
+
+// Initialize modules
+foreach ($files_to_include as $file) {
+    if (file_exists(BXB_dashboard_DIR . $file)) {
+        require_once BXB_dashboard_DIR . $file;
+    }
+}
+
   
 /* Plugin activation hook. */
 function bxb_dashboard_activate() {
