@@ -90,7 +90,7 @@ register_deactivation_hook(__FILE__, 'bxb_dashboard_deactivate');
         'bxb_documentation_page'
     );
 }
-add_action('admin_menu', 'bxb_dashboard_add_admin_menu');
+add_action('admin_menu', 'bxb_dashboard_add_admin_menu');*/
 
 // Main Dashboard Page
 function bxb_dashboard_page() {
@@ -111,4 +111,4 @@ function bxb_dashboard_page() {
         </div>
     </div>
     <?php
-} */
+} 
