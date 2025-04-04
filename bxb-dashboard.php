@@ -35,6 +35,11 @@ $files_to_include = array(
             'modules/Server Setup/server-setup.php',
             'modules/Server Setup/server-setup-docs.php',
             'modules/Server Setup/server-setup-toggle.php',
+        // Script Manager
+            'modules/Script Manager/script-manager.php',
+            'modules/Script Manager/snippets-dashboard.php',
+            'modules/Script Manager/snippet-settings.php',
+            'modules/Script Manager/snippet-ajax.php',
 );
 
 // Initialize modules
@@ -44,6 +49,23 @@ foreach ($files_to_include as $file) {
     }
 }
 
+// Initialize Server Setup module and its submodules
+add_action('plugins_loaded', function() {
+    if (class_exists('BxB_Server_Setup')) {
+        global $bxb_server_setup;
+        $bxb_server_setup = new BxB_Server_Setup();
+    }
+    
+    if (class_exists('BxB_Server_Setup_Docs')) {
+        global $bxb_server_setup_docs;
+        $bxb_server_setup_docs = new BxB_Server_Setup_Docs();
+    }
+    
+    if (class_exists('BxB_Server_Setup_Toggle')) {
+        global $bxb_server_setup_toggle;
+        $bxb_server_setup_toggle = new BxB_Server_Setup_Toggle();
+    }
+});
   
 /* Plugin activation hook. */
 function bxb_dashboard_activate() {
