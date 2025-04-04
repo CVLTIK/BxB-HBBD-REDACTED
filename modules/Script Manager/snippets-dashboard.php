@@ -6,12 +6,20 @@ if (!defined('ABSPATH')) {
 }
 
 // Enqueue admin scripts
-function bxb_snippets_enqueue_scripts() {
+function bxb_snippets_enqueue_scripts($hook) {
+    // Only load on our plugin pages
+    if (strpos($hook, 'bxb-snippets-dashboard') === false) {
+        return;
+    }
+    
+    // Get plugin version
+    $version = defined('BXB_dashboard_VERSION') ? BXB_dashboard_VERSION : '1.0.2';
+    
     wp_enqueue_script(
         'bxb-snippets-admin',
         plugins_url('assets/js/admin.js', __FILE__),
         array('jquery'),
-        BXB_dashboard_VERSION,
+        $version,
         true
     );
     
